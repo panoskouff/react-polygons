@@ -1,0 +1,22 @@
+:root {
+  --section-max-width: 1300px;
+  --section-x-offset: 68px;
+  --bg-viewport-cover-inset: 24px;
+  --border-radius-primary: 16px;
+  --border-radius-secondary: 5px;
+
+  /* spacings */
+  --spacing-xs: 10px;
+  --spacing-sm: 20px;
+  --spacing-md: 32px;
+  --spacing-lg: 64px;
+  --spacing-xl: 128px;
+
+  /* colors */
+  --bg-color-base: #fff;
+  --bg-color-primary: #f9f3e7;
+  --text-color-logo: #333;
+  --text-color-primary: #000;
+  --text-color-secondary: #222;
+  --text-color-tertiary: #b7b4b9;
+}
