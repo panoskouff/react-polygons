@@ -3,6 +3,13 @@ import '../theme/css/reset.css';
 import '../theme/css/theme.css';
 import '../theme/css/globals.css';
 import { mulish, tinos } from '#/theme/fonts';
+import { Header } from '#/components/Header';
+import { SectionContainer } from '#/components/SectionContainer';
+import {
+  ColumnFullHeightWrapper,
+  RemainingHeightContainer,
+  Space,
+} from '#/atoms';
 
 export const metadata = {
   title: 'Create Next App',
@@ -16,7 +23,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' className={`${mulish.variable} ${tinos.variable}`}>
-      <body>{children}</body>
+      <body>
+        <SectionContainer css={{ h: '100%', flexGrow: 1 }}>
+          <ColumnFullHeightWrapper>
+            <Header />
+            <Space h='sp-xs' />
+            <RemainingHeightContainer>{children}</RemainingHeightContainer>
+            <Space h='sp-xs' />
+          </ColumnFullHeightWrapper>
+        </SectionContainer>
+      </body>
     </html>
   );
 }
