@@ -1,47 +1,47 @@
-import { Center } from '#/atoms';
+'use client';
+
 import { styled } from '#/styled-system/jsx';
+import {
+  RemainingHeightContainer,
+  Space,
+  Center,
+  Padding,
+  Text,
+  Position,
+  Background,
+  Column,
+} from '#/atoms';
 // import { Space } from '#/atoms';
 
 export default function HomeContent() {
   return (
-    <styled.div
-      border='1px solid black'
-      borderRadius='5px'
-      display='grid'
-      gridTemplateColumns='5fr 2fr'
-      h='100%'
-    >
-      <styled.div borderRight='1px solid black'>
-        <Center css={{ minH: '100%' }}>
-          {/* @todo add different maxW per breakpoint */}
-          <styled.div w='100%' maxW='500px' h='100%'>
-            <styled.div w='100%' paddingBottom='100%' position='relative'>
-              <styled.svg
-                position='absolute'
-                boxShadow='inset 0 0 13px #535353'
-                viewBox='0 0 100 100'
-                preserveAspectRatio='xMinYMin slice'
-              >
-                <polygon id='quadrilateral' points='5,5 10,5 10,10 5,10' />
-              </styled.svg>
-            </styled.div>
-          </styled.div>
-        </Center>
-        {/* <styled.div
-
-          w='100%'
-          maxW='100%'
-          aspectRatio='1 / 1'
-          // h='100%'
-          // m='0 auto'
-        >
-
-        </styled.div> */}
-        {/* <styled.div paddingBottom='100%' bg='red'>
-          area 1
-        </styled.div> */}
-      </styled.div>
-      <styled.div>todo add border here and remove from area 1</styled.div>
-    </styled.div>
+    <>
+      <Position pos='fixed' css={{ h: '100vh' }}>
+        <Background bg='#efefef' h='100%'>
+          <Position>
+            <svg
+              width='100%'
+              height='100%'
+              xmlns='http://www.w3.org/2000/svg'
+            ></svg>
+          </Position>
+          {/* side menu */}
+          <Position right='2vw' top='20vh' left='auto'>
+            <Background bg='#fff' css={{ borderRadius: '10px' }}>
+              <Padding p='10px'>
+                <Column gap='10px'>
+                  <styled.button maxW='50px'>
+                    <Text>todo</Text>
+                  </styled.button>
+                  <styled.button maxW='50px'>
+                    <Text>todo</Text>
+                  </styled.button>
+                </Column>
+              </Padding>
+            </Background>
+          </Position>
+        </Background>
+      </Position>
+    </>
   );
 }
