@@ -44,7 +44,7 @@ export default defineConfig({
       },
       radii: {
         sm: { value: '5px' },
-        lg: { value: '16px' },
+        md: { value: '10px' },
       },
       easings: {
         swiftDecelerate: { value: 'cubic-bezier(0.55, 0.055, 0.675, 0.19)' },

@@ -1,8 +1,13 @@
 import { usePolygonsContext } from '#/context/polygons-context/PolygonsContext';
-import { Padding, Background, Column, Button } from '#/atoms';
+import { Padding, Background, Row, Button } from '#/atoms';
 
-export const SideMenu: React.FC = () => {
+export const TopMenu: React.FC = () => {
   const { dispatch, state } = usePolygonsContext();
+
+  if (state.mode === 'idle') {
+    return null;
+  }
+
   return (
     <Background
       bg='#fff'
@@ -12,17 +17,14 @@ export const SideMenu: React.FC = () => {
       }}
     >
       <Padding p='10px'>
-        <Column gap='10px'>
+        <Row gap='10px'>
           <Button
-            text='Add'
+            text='Cancel'
             onClick={() => {
-              dispatch({ type: 'SET_MODE_ADD' });
+              dispatch({ type: 'SET_MODE_IDLE' });
             }}
-            disabled={state.mode !== 'idle'}
           />
-
-          <Button text='todo' />
-        </Column>
+        </Row>
       </Padding>
     </Background>
   );

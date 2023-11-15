@@ -7,6 +7,7 @@ import {
 } from '#/context/polygons-context/PolygonsContext';
 import { Text, Position, Background } from '#/atoms';
 import { SideMenu } from '#/components/SideMenu';
+import { TopMenu } from '#/components/TopMenu';
 
 // @todo rename this
 const SVGBoard = () => {
@@ -37,7 +38,10 @@ const SVGBoard = () => {
           xmlns='http://www.w3.org/2000/svg'
         ></svg>
       </Position>
-      <Position right='2vw' top='20vh' left='auto'>
+      <Position top='2vw' left='50vh' right='unset'>
+        <TopMenu />
+      </Position>
+      <Position right='2vw' top='20vh' left='unset'>
         <SideMenu />
       </Position>
     </>
