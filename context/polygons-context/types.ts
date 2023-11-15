@@ -9,7 +9,7 @@ export type State = {
         y: number;
       }[];
     };
-  } | null;
+  };
 };
 
 export type setModeIdleAction = { type: 'SET_MODE_IDLE' };

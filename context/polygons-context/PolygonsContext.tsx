@@ -27,7 +27,7 @@ const PolygonsContext = createContext<{
   state: State;
   dispatch: React.Dispatch<Action>;
 }>({
-  state: { mode: 'idle', selectedPolygon: null, polygons: null },
+  state: { mode: 'idle', selectedPolygon: null, polygons: {} },
   dispatch: () => null,
 });
 
@@ -38,7 +38,7 @@ const PolygonsContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const [state, dispatch] = useReducer(reducer, {
     mode: 'idle',
     selectedPolygon: null,
-    polygons: null,
+    polygons: {},
   });
 
   return (
