@@ -21,19 +21,16 @@ const SVGBoard = () => {
     console.log('$$', state);
 
     if (state.mode === 'add') {
-      // valid cases svg and circe/starting point nearby area
-      // else return
-      if (target.tagName === 'svg') {
-        console.log(event.clientX, event.clientY);
+      if (target.tagName === 'svg' || target.tagName === 'circle') {
         dispatch({
           type: 'ADD_POINT',
-          payload: { x: event.clientX, y: event.clientY },
+          payload: {
+            point: { x: event.clientX, y: event.clientY },
+            clickedOnPoint: target.tagName === 'circle',
+          },
         });
-        /*
-        // if empty or if closing the polygon
-
-        */
       }
+      return;
     }
 
     // if (target.tagName === 'circle') {

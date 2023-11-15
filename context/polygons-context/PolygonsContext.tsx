@@ -1,22 +1,6 @@
-import { generateKey } from '#/utils';
 import React, { useReducer, useContext, createContext } from 'react';
-type State = {
-  mode: 'idle' | 'add';
-  selectedPolygon: string | null;
-  polygons: {
-    [key: string]: {
-      isComplete: boolean;
-      points: {
-        x: number;
-        y: number;
-      }[];
-    };
-  } | null;
-};
-
-type Action =
-  | { type: 'SET_MODE_IDLE' | 'SET_MODE_ADD' }
-  | { type: 'ADD_POINT'; payload: { x: number; y: number } };
+import { Action, State } from './types';
+import { addPointReducer } from './reducers';
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -26,35 +10,19 @@ const reducer = (state: State, action: Action): State => {
     case 'SET_MODE_ADD':
       return { ...state, mode: 'add' };
     case 'ADD_POINT':
-      if (state.selectedPolygon === null) {
-        const newPolygonKey = generateKey('mock-user-id', 'mock-session-id');
-        console.log('RETURNING NEW STATE 🔥');
-        return {
-          ...state,
-          selectedPolygon: newPolygonKey,
-          polygons: {
-            ...state.polygons,
-            [newPolygonKey]: {
-              isComplete: false,
-              points: [action.payload],
-            },
-          },
-        };
-      }
-      console.log('RETURNING DEFAULT STATE');
-      return state;
+      return addPointReducer(state, action);
+
     default:
       return state;
   }
 };
-// type Action = { type: 'SET_MODE_IDLE' } | { type: 'SET_MODE_ADD' };
 
 const PolygonsContext = createContext<{
   state: State;
   dispatch: React.Dispatch<Action>;
 }>({
   state: { mode: 'idle', selectedPolygon: null, polygons: null },
-  dispatch: () => null, // default function
+  dispatch: () => null,
 });
 
 const PolygonsContextProvider: React.FC<{ children: React.ReactNode }> = ({
