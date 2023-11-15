@@ -21,8 +21,18 @@ const SVGBoard = () => {
     console.log('$$', state);
 
     if (state.mode === 'add') {
+      // valid cases svg and circe/starting point nearby area
+      // else return
       if (target.tagName === 'svg') {
-        alert('correct');
+        console.log(event.clientX, event.clientY);
+        dispatch({
+          type: 'ADD_POINT',
+          payload: { x: event.clientX, y: event.clientY },
+        });
+        /*
+        // if empty or if closing the polygon
+
+        */
       }
     }
 
@@ -34,6 +44,9 @@ const SVGBoard = () => {
     // }
   };
 
+  const polygonKeys = Object.keys(state.polygons ?? {});
+
+  // @todo fix keys
   return (
     <>
       <Position {...expanded}>
@@ -42,7 +55,63 @@ const SVGBoard = () => {
           height='100%'
           onClick={svgClickHandler}
           xmlns='http://www.w3.org/2000/svg'
-        ></svg>
+        >
+          {polygonKeys.map((polygonKey) => {
+            const polygon = state?.polygons?.[polygonKey];
+            if (!polygon) {
+              return null;
+            }
+            const points = polygon.points.map((point) => {
+              return `${point.x},${point.y}`;
+            });
+            const pointsString = points.join(' ');
+
+            return (
+              <g>
+                {polygon.isComplete && (
+                  <polygon
+                    key={polygonKey}
+                    points={pointsString}
+                    style={{
+                      fill: 'lime',
+                      stroke: 'purple',
+                      strokeWidth: 1,
+                    }}
+                  />
+                )}
+
+                {polygon.points.map((point, index) => {
+                  const nextPoint = polygon.points[index + 1];
+                  if (nextPoint) {
+                    return (
+                      <line
+                        key={`${polygonKey}-line-${index}`}
+                        x1={point.x}
+                        y1={point.y}
+                        x2={nextPoint.x}
+                        y2={nextPoint.y}
+                        stroke='black'
+                      />
+                    );
+                  }
+                })}
+                {polygon.points.map((point, index) => {
+                  return (
+                    <circle
+                      key={`${polygonKey}-point-${index}`}
+                      cx={point.x}
+                      cy={point.y}
+                      r='5'
+                      stroke='black'
+                      strokeWidth='3'
+                      fill='red'
+                    />
+                  );
+                })}
+              </g>
+            );
+          })}
+        </svg>
       </Position>
       <Position top='2vw' left='40vw'>
         <TopMenu />
