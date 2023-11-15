@@ -18,7 +18,6 @@ const SVGBoard = () => {
     event: React.MouseEvent<SVGSVGElement, MouseEvent>
   ) => {
     const target = event.target as SVGElement;
-    console.log('$$', state);
 
     if (state.mode === 'add') {
       if (target.tagName === 'svg' || target.tagName === 'circle') {
@@ -93,6 +92,13 @@ const SVGBoard = () => {
                   }
                 })}
                 {polygon.points.map((point, index) => {
+                  if (
+                    index === polygon.points.length - 1 &&
+                    polygon.isComplete
+                  ) {
+                    // last point is the same as first point if completed
+                    return null;
+                  }
                   return (
                     <circle
                       key={`${polygonKey}-point-${index}`}
