@@ -30,6 +30,19 @@ const SVGBoard = () => {
         });
       }
       return;
+    } else if (state.mode === 'delete') {
+      if (target.tagName === 'polygon') {
+        const polygonId = target.parentElement?.getAttribute('data-polygonId');
+        if (!polygonId) {
+          console.error('svgClickHandler: Missing polygonId');
+          return;
+        }
+
+        dispatch({
+          type: 'DELETE_POLYGON',
+          payload: { polygonId },
+        });
+      }
     }
 
     // if (target.tagName === 'circle') {
@@ -63,7 +76,7 @@ const SVGBoard = () => {
             const pointsString = points.join(' ');
 
             return (
-              <g>
+              <g data-polygonId={polygonKey}>
                 {polygon.isComplete && (
                   <polygon
                     key={polygonKey}

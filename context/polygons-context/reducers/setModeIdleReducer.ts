@@ -11,8 +11,9 @@ export const setModeIdleReducer = (
     !state.polygons?.[selectedPolygon]?.isComplete
   ) {
     if (!state.polygons) {
-      // this should never happen
-      throw new Error('setModeIdleReducer: state.polygons is undefined');
+      // here to satisfy typescript - this should never happen
+      console.error('setModeIdleReducer: state.polygons is undefined');
+      return state;
     }
 
     const { [selectedPolygon]: _, ...remainingPolygons } = state.polygons;

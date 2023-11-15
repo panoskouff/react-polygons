@@ -1,6 +1,10 @@
 import React, { useReducer, useContext, createContext } from 'react';
 import { Action, State } from './types';
-import { addPointReducer, setModeIdleReducer } from './reducers';
+import {
+  addPointReducer,
+  deletePolygonReducer,
+  setModeIdleReducer,
+} from './reducers';
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -8,9 +12,12 @@ const reducer = (state: State, action: Action): State => {
       return setModeIdleReducer(state, action);
     case 'SET_MODE_ADD':
       return { ...state, mode: 'add' };
+    case 'SET_MODE_DELETE':
+      return { ...state, mode: 'delete' };
     case 'ADD_POINT':
       return addPointReducer(state, action);
-
+    case 'DELETE_POLYGON':
+      return deletePolygonReducer(state, action);
     default:
       return state;
   }

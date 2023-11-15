@@ -25,10 +25,11 @@ export const addPointReducer = (
     const startingPoint = state.polygons?.[state.selectedPolygon]?.points?.[0];
 
     if (!currentAmountOfPoints || !startingPoint) {
-      // this should never happen
-      throw new Error(
+      // here to satisfy typescript - this should never happen
+      console.error(
         'AddPointReducer: currentAmountOfPoints or startingPoint is undefined'
       );
+      return state;
     }
 
     const possibleToCompletePolygon = currentAmountOfPoints >= 2;
