@@ -1,12 +1,11 @@
 import React, { useReducer, useContext, createContext } from 'react';
 import { Action, State } from './types';
-import { addPointReducer } from './reducers';
+import { addPointReducer, setModeIdleReducer } from './reducers';
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'SET_MODE_IDLE':
-      // set selected polygon to null
-      return { ...state, selectedPolygon: null, mode: 'idle' };
+      return setModeIdleReducer(state, action);
     case 'SET_MODE_ADD':
       return { ...state, mode: 'add' };
     case 'ADD_POINT':

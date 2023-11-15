@@ -12,11 +12,12 @@ export type State = {
   } | null;
 };
 
+export type setModeIdleAction = { type: 'SET_MODE_IDLE' };
+export type setModeAddAction = { type: 'SET_MODE_ADD' };
+
 export type AddPointAction = {
   type: 'ADD_POINT';
   payload: { point: { x: number; y: number }; clickedOnPoint: boolean };
 };
 
-export type Action =
-  | { type: 'SET_MODE_IDLE' | 'SET_MODE_ADD' }
-  | AddPointAction;
+export type Action = setModeIdleAction | setModeAddAction | AddPointAction;

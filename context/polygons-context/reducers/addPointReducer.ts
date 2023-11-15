@@ -41,7 +41,6 @@ export const addPointReducer = (
       possibleToCompletePolygon &&
       arePointsNearby(newPoint, startingPoint, 15)
     ) {
-      console.log('hit');
       pointToBeAdded = startingPoint;
       polygonToBeCompleted = true;
     }
