@@ -1,5 +1,6 @@
 export { Space } from './Space';
 export { Text } from './Text';
+export { Button } from './Button';
 export { Label } from './Label';
 export { Container } from './Container';
 export { Position } from './Position';

@@ -5,7 +5,7 @@ import {
   PolygonsContextProvider,
   usePolygonsContext,
 } from '#/context/polygons-context/PolygonsContext';
-import { Padding, Text, Position, Background, Column } from '#/atoms';
+import { Padding, Text, Position, Background, Column, Button } from '#/atoms';
 import { useState } from 'react';
 // import { Space } from '#/atoms';
 
@@ -40,11 +40,17 @@ const SVGBoard = () => {
       </Position>
       {/* side menu */}
       <Position right='2vw' top='20vh' left='auto'>
-        <Background bg='#fff' css={{ borderRadius: '10px' }}>
+        <Background
+          bg='#fff'
+          css={{
+            borderRadius: '10px',
+            boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+          }}
+        >
           <Padding p='10px'>
             <Column gap='10px'>
-              <styled.button
-                maxW='50px'
+              <Button
+                text='todo'
                 onClick={() => {
                   if (state.mode === 'idle') {
                     dispatch({ type: 'SET_MODE_ADD' });
@@ -52,12 +58,9 @@ const SVGBoard = () => {
                     dispatch({ type: 'SET_MODE_IDLE' });
                   }
                 }}
-              >
-                <Text>todo</Text>
-              </styled.button>
-              <styled.button maxW='50px'>
-                <Text>todo</Text>
-              </styled.button>
+              />
+
+              <Button text='todo' />
             </Column>
           </Padding>
         </Background>
@@ -70,7 +73,13 @@ export default function Home() {
   return (
     <PolygonsContextProvider>
       <Position pos='fixed' css={{ h: '100vh' }}>
-        <Background bg='#efefef' h='100%'>
+        <Background
+          bg='#f7f7f7'
+          backgroundSize='30px 30px'
+          backgroundImage='linear-gradient(to right, grey 1px, transparent 1px),
+    linear-gradient(to bottom, grey 1px, transparent 1px)'
+          h='100%'
+        >
           <SVGBoard />
         </Background>
       </Position>
