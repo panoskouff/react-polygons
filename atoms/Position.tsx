@@ -13,7 +13,7 @@ export type PositionPandaProperties =
 type PositionProps = PandaDivProps<PositionPandaProperties | 'css'>;
 
 export const Position: React.FC<PositionProps> = ({ children, ...rest }) => (
-  <styled.div pos='absolute' top={0} right={0} bottom={0} left={0} {...rest}>
+  <styled.div pos='absolute' {...rest}>
     {children}
   </styled.div>
 );
