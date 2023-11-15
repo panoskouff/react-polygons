@@ -5,9 +5,8 @@ import {
   PolygonsContextProvider,
   usePolygonsContext,
 } from '#/context/polygons-context/PolygonsContext';
-import { Padding, Text, Position, Background, Column, Button } from '#/atoms';
-import { useState } from 'react';
-// import { Space } from '#/atoms';
+import { Text, Position, Background } from '#/atoms';
+import { SideMenu } from '#/components/SideMenu';
 
 // @todo rename this
 const SVGBoard = () => {
@@ -38,32 +37,8 @@ const SVGBoard = () => {
           xmlns='http://www.w3.org/2000/svg'
         ></svg>
       </Position>
-      {/* side menu */}
       <Position right='2vw' top='20vh' left='auto'>
-        <Background
-          bg='#fff'
-          css={{
-            borderRadius: '10px',
-            boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-          }}
-        >
-          <Padding p='10px'>
-            <Column gap='10px'>
-              <Button
-                text='todo'
-                onClick={() => {
-                  if (state.mode === 'idle') {
-                    dispatch({ type: 'SET_MODE_ADD' });
-                  } else {
-                    dispatch({ type: 'SET_MODE_IDLE' });
-                  }
-                }}
-              />
-
-              <Button text='todo' />
-            </Column>
-          </Padding>
-        </Background>
+        <SideMenu />
       </Position>
     </>
   );
