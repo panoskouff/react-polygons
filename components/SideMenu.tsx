@@ -14,23 +14,51 @@ export const SideMenu: React.FC = () => {
       <Padding p='10px'>
         <Column gap='10px'>
           <Button
-            text='Add'
+            text='Add Polygon'
             onClick={() => {
               dispatch({ type: 'SET_MODE_ADD_POLYGON' });
             }}
             disabled={state.mode !== 'idle'}
           />
           <Button
-            text='Move'
+            text='Move Polygon'
             onClick={() => {
               dispatch({ type: 'SET_MODE_MOVE_POLYGON' });
             }}
             disabled={state.mode !== 'idle'}
           />
           <Button
-            text='Delete'
+            text='Remove Polygon'
             onClick={() => {
               dispatch({ type: 'SET_MODE_REMOVE_POLYGON' });
+            }}
+            disabled={state.mode !== 'idle'}
+          />
+          <Button
+            text='Add Vertex - @TODO'
+            onClick={() => {
+              alert('todo');
+            }}
+            disabled={state.mode !== 'idle'}
+          />
+          <Button
+            text='Move Vertex - @TODO'
+            onClick={() => {
+              alert('todo');
+            }}
+            disabled={state.mode !== 'idle'}
+          />
+          <Button
+            text='Remove Vertex - @TODO'
+            onClick={() => {
+              alert('todo');
+            }}
+            disabled={state.mode !== 'idle'}
+          />
+          <Button
+            text='Remove Side - @TODO'
+            onClick={() => {
+              alert('todo');
             }}
             disabled={state.mode !== 'idle'}
           />

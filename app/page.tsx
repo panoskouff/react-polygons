@@ -138,7 +138,7 @@ const SVGBoard = () => {
       <Position top='2vw' left='40vw'>
         <TopMenu />
       </Position>
-      <Position right='2vw' top='20vh'>
+      <Position right='2vw' top='10vh'>
         <SideMenu />
       </Position>
     </>

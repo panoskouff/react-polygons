@@ -54,8 +54,8 @@ export const textStyles = defineTextStyles({
       fontSize: { base: '36px', sm: '50px', md: '5.5vh' },
     },
   },
-  caption: {
-    description: 'The caption text style',
+  button: {
+    description: 'The button text style',
     value: {
       ...styles.base.value,
       fontSize: '14px',

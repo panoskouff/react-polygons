@@ -9,7 +9,7 @@ export type ButtonProps = PandaButtonProps<'display' | 'p' | 'css'> & {
 export const Button: React.FC<ButtonProps> = ({
   children,
   text,
-  p = '0 10px',
+  p = '5px 10px',
   ...rest
 }) => (
   <styled.button
@@ -30,7 +30,9 @@ export const Button: React.FC<ButtonProps> = ({
   >
     {text && (
       <Padding p={p}>
-        <Text>{text}</Text>
+        <Text textStyle='button' letterSpacing={0.3}>
+          {text}
+        </Text>
       </Padding>
     )}
     {children}
