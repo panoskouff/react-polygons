@@ -13,7 +13,6 @@ export default defineConfig({
     './app/**/*.{ts,tsx,js,jsx}',
   ],
   exclude: [],
-
   conditions: {
     extend: {
       groupHover: '[role=group]:hover &',

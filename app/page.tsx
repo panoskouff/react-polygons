@@ -24,7 +24,7 @@ const SVGBoard = () => {
   const handleMouseDown = (
     event: React.MouseEvent<SVGSVGElement, MouseEvent>
   ) => {
-    if (state.mode !== 'move') return;
+    if (state.mode !== 'move-polygon') return;
     const target = event.target as SVGElement;
     console.log('handleMouseDown called', target.tagName);
     if (target.tagName === 'polygon') {
@@ -93,7 +93,7 @@ const SVGBoard = () => {
     const target = event.target as SVGElement;
     console.log('svgClickHandler called', target.tagName);
 
-    if (state.mode === 'add') {
+    if (state.mode === 'add-polygon') {
       if (target.tagName === 'svg' || target.tagName === 'circle') {
         dispatch({
           type: 'ADD_POINT',
@@ -104,7 +104,7 @@ const SVGBoard = () => {
         });
       }
       return;
-    } else if (state.mode === 'delete') {
+    } else if (state.mode === 'remove-polygon') {
       if (target.tagName === 'polygon') {
         const polygonId = target.parentElement?.getAttribute('data-polygonId');
         if (!polygonId) {
@@ -113,7 +113,7 @@ const SVGBoard = () => {
         }
 
         dispatch({
-          type: 'DELETE_POLYGON',
+          type: 'REMOVE_POLYGON',
           payload: { polygonId },
         });
       }

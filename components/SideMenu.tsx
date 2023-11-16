@@ -16,21 +16,21 @@ export const SideMenu: React.FC = () => {
           <Button
             text='Add'
             onClick={() => {
-              dispatch({ type: 'SET_MODE_ADD' });
+              dispatch({ type: 'SET_MODE_ADD_POLYGON' });
             }}
             disabled={state.mode !== 'idle'}
           />
           <Button
             text='Move'
             onClick={() => {
-              dispatch({ type: 'SET_MODE_MOVE' });
+              dispatch({ type: 'SET_MODE_MOVE_POLYGON' });
             }}
             disabled={state.mode !== 'idle'}
           />
           <Button
             text='Delete'
             onClick={() => {
-              dispatch({ type: 'SET_MODE_DELETE' });
+              dispatch({ type: 'SET_MODE_REMOVE_POLYGON' });
             }}
             disabled={state.mode !== 'idle'}
           />

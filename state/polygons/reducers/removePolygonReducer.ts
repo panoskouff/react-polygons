@@ -1,12 +1,12 @@
 import { DeletePolygonAction, State } from '#/types/state/polygons';
 
-export const deletePolygonReducer = (
+export const removePolygonReducer = (
   state: State,
   action: DeletePolygonAction
 ): State => {
   if (!state.polygons) {
     // here to satisfy typescript - should never happen
-    console.error('deletePolygonReducer: No polygons in state');
+    console.error('removePolygonReducer: No polygons in state');
     return state;
   }
 
