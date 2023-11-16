@@ -2,6 +2,7 @@ import {
   addPointReducer,
   deletePolygonReducer,
   setModeIdleReducer,
+  editPolygonPointsReducer,
 } from './reducers';
 import { State, Action } from './types';
 
@@ -17,6 +18,8 @@ export const combinedReducer = (state: State, action: Action): State => {
       return { ...state, mode: 'move' };
     case 'ADD_POINT':
       return addPointReducer(state, action);
+    case 'EDIT_POLYGON_POINTS':
+      return editPolygonPointsReducer(state, action);
     case 'DELETE_POLYGON':
       return deletePolygonReducer(state, action);
     default:

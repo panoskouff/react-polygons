@@ -22,6 +22,11 @@ export type AddPointAction = {
   payload: { point: { x: number; y: number }; clickedOnPoint: boolean };
 };
 
+export type EditPolygonPointsAction = {
+  type: 'EDIT_POLYGON_POINTS';
+  payload: { polygonId: string; points: { x: number; y: number }[] };
+};
+
 export type DeletePolygonAction = {
   type: 'DELETE_POLYGON';
   payload: { polygonId: string };
@@ -33,4 +38,5 @@ export type Action =
   | setModeDeleteAction
   | setModeMoveAction
   | AddPointAction
+  | EditPolygonPointsAction
   | DeletePolygonAction;

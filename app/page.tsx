@@ -68,7 +68,22 @@ const SVGBoard = () => {
     if (isDragging.current && currentGElement.current) {
       isDragging.current = false;
       const polygonId = currentGElement.current.getAttribute('data-polygonId');
-      // @todo update polygon points and remove translation
+      if (!polygonId) {
+        console.error('handleMouseUp: Missing polygonId');
+        return;
+      }
+      const polygonPoints = state.polygons[polygonId].points;
+      const newPoints = polygonPoints.map((point) => {
+        return {
+          x: point.x + dragOffset.current.x,
+          y: point.y + dragOffset.current.y,
+        };
+      });
+      dispatch({
+        type: 'EDIT_POLYGON_POINTS',
+        payload: { polygonId, points: newPoints },
+      });
+      currentGElement.current.setAttribute('transform', `translate(0, 0)`);
       dragOffset.current = { x: 0, y: 0 };
       currentGElement.current = null;
     }
