@@ -1,5 +1,6 @@
 // import { Row, Text } from '#/atoms';
 import { usePolygonsContext } from '#/context/polygons-context/PolygonsContext';
+import { styled } from '#/styled-system/jsx';
 
 export const Polygons: React.FC = () => {
   const { state, dispatch } = usePolygonsContext();
@@ -19,30 +20,34 @@ export const Polygons: React.FC = () => {
         const pointsString = points.join(' ');
 
         return (
-          <g data-polygonId={polygonKey}>
+          <styled.g data-polygonId={polygonKey} role='group'>
             {polygon.isComplete && (
-              <polygon
+              <styled.polygon
                 key={polygonKey}
                 points={pointsString}
-                style={{
-                  fill: 'lime',
-                  stroke: 'purple',
-                  strokeWidth: 1,
-                }}
+                fill='#46ff00'
+                stroke='#d282f3'
+                strokeWidth='2'
               />
             )}
-
             {polygon.points.map((point, index) => {
               const nextPoint = polygon.points[index + 1];
               if (nextPoint) {
                 return (
-                  <line
+                  <styled.line
                     key={`${polygonKey}-line-${index}`}
                     x1={point.x}
                     y1={point.y}
                     x2={nextPoint.x}
                     y2={nextPoint.y}
-                    stroke='black'
+                    stroke='#256eff'
+                    strokeWidth='5'
+                    opacity={{ base: '0', _groupHover: '1' }}
+                    transition='opacity 0.6s'
+                    _hover={{ cursor: 'pointer' }}
+                    onClick={() => {
+                      alert('click');
+                    }}
                   />
                 );
               }
@@ -53,18 +58,18 @@ export const Polygons: React.FC = () => {
                 return null;
               }
               return (
-                <circle
+                <styled.circle
                   key={`${polygonKey}-point-${index}`}
                   cx={point.x}
                   cy={point.y}
                   r='5'
                   stroke='black'
                   strokeWidth='3'
-                  fill='red'
+                  fill='orangered'
                 />
               );
             })}
-          </g>
+          </styled.g>
         );
       })}
       ;

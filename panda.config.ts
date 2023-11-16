@@ -14,6 +14,11 @@ export default defineConfig({
   ],
   exclude: [],
 
+  conditions: {
+    extend: {
+      groupHover: '[role=group]:hover &',
+    },
+  },
   theme: {
     breakpoints: {
       sm: '480px',
