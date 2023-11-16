@@ -138,7 +138,7 @@ const SVGBoard = () => {
           payload: { polygonId, prevPoint, newPoint },
         });
       }
-    } else if ((state.mode = 'remove-vertex')) {
+    } else if (state.mode === 'remove-vertex') {
       if (target.tagName === 'circle') {
         const polygonId = target.parentElement?.getAttribute('data-polygonId');
         if (!polygonId) {
@@ -156,6 +156,29 @@ const SVGBoard = () => {
         dispatch({
           type: 'REMOVE_VERTEX',
           payload: { polygonId, point },
+        });
+      }
+    } else if (state.mode === 'remove-side') {
+      if (target.tagName === 'line') {
+        const polygonId = target.parentElement?.getAttribute('data-polygonId');
+        if (!polygonId) {
+          console.error('svgClickHandler: Missing polygonId');
+          return;
+        }
+        const x1 = target.getAttribute('x1');
+        const y1 = target.getAttribute('y1');
+        const x2 = target.getAttribute('x2');
+        const y2 = target.getAttribute('y2');
+        if (!x1 || !y1 || !x2 || !y2) {
+          // here to satisfy typescript - this should never happen
+          console.error('svgClickHandler: Missing Points of line');
+          return;
+        }
+        const point1 = { x: parseInt(x1), y: parseInt(y1) };
+        const point2 = { x: parseInt(x2), y: parseInt(y2) };
+        dispatch({
+          type: 'REMOVE_SIDE',
+          payload: { polygonId, point1, point2 },
         });
       }
     }

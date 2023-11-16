@@ -4,3 +4,4 @@ export { removePolygonReducer } from './removePolygonReducer';
 export { editPolygonPointsReducer } from './editPolygonPointsReducer';
 export { addVertexToSideReducer } from './addVertexToSideReducer';
 export { removeVertexReducer } from './removeVertexReducer';
+export { removeSideReducer } from './removeSideReducer';

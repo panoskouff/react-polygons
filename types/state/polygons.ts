@@ -7,7 +7,8 @@ export type State = {
     | 'move-polygon'
     | 'remove-polygon'
     | 'add-vertex-to-side'
-    | 'remove-vertex';
+    | 'remove-vertex'
+    | 'remove-side';
   selectedPolygon: string | null;
   polygons: {
     [key: string]: {
@@ -26,6 +27,7 @@ export type setModeAddVertexToSideAction = {
   type: 'SET_MODE_ADD_VERTEX_TO_SIDE';
 };
 export type setModeRemovePolygonAction = { type: 'SET_MODE_REMOVE_POLYGON' };
+export type setModeRemoveSideAction = { type: 'SET_MODE_REMOVE_SIDE' };
 export type setModeMovePolygonAction = { type: 'SET_MODE_MOVE_POLYGON' };
 export type setModeRemoveVertexAction = { type: 'SET_MODE_REMOVE_VERTEX' };
 
@@ -54,6 +56,11 @@ export type RemoveVertexAction = {
   payload: { polygonId: string; point: Point };
 };
 
+export type RemoveSideAction = {
+  type: 'REMOVE_SIDE';
+  payload: { polygonId: string; point1: Point; point2: Point };
+};
+
 export type Action =
   | setModeIdleAction
   | setModeAddPolygonAction
@@ -61,8 +68,10 @@ export type Action =
   | setModeMovePolygonAction
   | setModeRemoveVertexAction
   | setModeAddVertexToSideAction
+  | setModeRemoveSideAction
   | AddPointAction
   | AddVertexToSideAction
   | EditPolygonPointsAction
   | RemovePolygonAction
-  | RemoveVertexAction;
+  | RemoveVertexAction
+  | RemoveSideAction;

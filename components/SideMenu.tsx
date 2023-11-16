@@ -57,10 +57,9 @@ export const SideMenu: React.FC = () => {
             disabled={state.mode !== 'idle'}
           />
           <Button
-            text='Remove Side - @TODO'
-            css={{ bg: '#9f9f9f6e' }}
+            text='Remove Side'
             onClick={() => {
-              alert('todo');
+              dispatch({ type: 'SET_MODE_REMOVE_SIDE' });
             }}
             disabled={state.mode !== 'idle'}
           />
