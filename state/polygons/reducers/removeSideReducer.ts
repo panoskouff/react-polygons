@@ -29,7 +29,7 @@ export const removeSideReducer = (
 
   if (firstPointToRemoveIndex === -1) {
     // should never happen
-    console.error('removeVertexReducer: pointToRemoveIndex is -1');
+    console.error("removeSideReducer: couldn't find point in points");
     return state;
   }
 
@@ -45,6 +45,9 @@ export const removeSideReducer = (
       points?.[2],
     ];
   } else if (firstPointToRemoveIndex === points.length - 2) {
+    /* if our side is the last side, we also need to handle
+      the first and last point, because the last one is the
+      same as the first one */
     newPoints = [...points?.slice(1, points.length - 2), points?.[1]];
   } else {
     newPoints = [

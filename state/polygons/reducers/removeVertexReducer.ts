@@ -25,7 +25,7 @@ export const removeVertexReducer = (
 
   if (pointToRemoveIndex === -1) {
     // should never happen
-    console.error('removeVertexReducer: pointToRemoveIndex is -1');
+    console.error("removeVertexReducer: couldn't find point in points");
     return state;
   }
 
