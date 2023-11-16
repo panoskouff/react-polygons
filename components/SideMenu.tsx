@@ -12,7 +12,7 @@ export const SideMenu: React.FC = () => {
       }}
     >
       <Padding p='10px'>
-        <Column gap='10px'>
+        <Column gap='10px' css={{ maxW: '100px' }}>
           <Button
             text='Add Polygon'
             onClick={() => {
@@ -35,14 +35,15 @@ export const SideMenu: React.FC = () => {
             disabled={state.mode !== 'idle'}
           />
           <Button
-            text='Add Vertex - @TODO'
+            text='Add Vertex'
             onClick={() => {
-              alert('todo');
+              dispatch({ type: 'SET_MODE_ADD_VERTEX_TO_SIDE' });
             }}
             disabled={state.mode !== 'idle'}
           />
           <Button
             text='Move Vertex - @TODO'
+            css={{ bg: '#9f9f9f6e' }}
             onClick={() => {
               alert('todo');
             }}
@@ -50,6 +51,7 @@ export const SideMenu: React.FC = () => {
           />
           <Button
             text='Remove Vertex - @TODO'
+            css={{ bg: '#9f9f9f6e' }}
             onClick={() => {
               alert('todo');
             }}
@@ -57,6 +59,7 @@ export const SideMenu: React.FC = () => {
           />
           <Button
             text='Remove Side - @TODO'
+            css={{ bg: '#9f9f9f6e' }}
             onClick={() => {
               alert('todo');
             }}

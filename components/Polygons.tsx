@@ -45,9 +45,6 @@ export const Polygons: React.FC = () => {
                     opacity={{ base: '0', _groupHover: '1' }}
                     transition='opacity 0.6s'
                     _hover={{ cursor: 'pointer' }}
-                    onClick={() => {
-                      alert('click');
-                    }}
                   />
                 );
               }
