@@ -1,4 +1,4 @@
-import { EditPolygonPointsAction, State } from '../types';
+import { EditPolygonPointsAction, State } from '#/types/state/polygons';
 
 export const editPolygonPointsReducer = (
   state: State,

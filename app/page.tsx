@@ -148,7 +148,6 @@ const SVGBoard = () => {
 export default function Home() {
   return (
     <PolygonsContextProvider>
-      {/* top={0} right={0} bottom={0} left={0} */}
       <Position pos='fixed' {...expanded} css={{ h: '100vh' }}>
         <Background
           bg='#f7f7f7'

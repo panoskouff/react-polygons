@@ -1,4 +1,4 @@
-import { setModeIdleAction, State } from '../types';
+import { setModeIdleAction, State } from '#/types/state/polygons';
 
 export const setModeIdleReducer = (
   state: State,

@@ -1,4 +1,4 @@
-import { DeletePolygonAction, State } from '../types';
+import { DeletePolygonAction, State } from '#/types/state/polygons';
 
 export const deletePolygonReducer = (
   state: State,

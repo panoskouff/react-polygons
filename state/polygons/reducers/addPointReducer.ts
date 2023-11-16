@@ -1,5 +1,5 @@
 import { generateKey, arePointsNearby } from '#/utils';
-import { AddPointAction, State } from '../types';
+import { AddPointAction, State } from '#/types/state/polygons';
 
 export const addPointReducer = (
   state: State,

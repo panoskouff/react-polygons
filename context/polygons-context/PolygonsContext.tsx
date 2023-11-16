@@ -1,5 +1,5 @@
 import React, { useReducer, useContext, createContext } from 'react';
-import { Action, State } from '#/state/polygons/types';
+import { Action, State } from '#/types/state/polygons';
 import { combinedReducer } from '#/state/polygons/combinedReducer';
 
 const PolygonsContext = createContext<{

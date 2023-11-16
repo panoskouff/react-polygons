@@ -4,7 +4,7 @@ import {
   setModeIdleReducer,
   editPolygonPointsReducer,
 } from './reducers';
-import { State, Action } from './types';
+import { State, Action } from '#/types/state/polygons';
 
 export const combinedReducer = (state: State, action: Action): State => {
   switch (action.type) {
