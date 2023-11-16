@@ -138,6 +138,26 @@ const SVGBoard = () => {
           payload: { polygonId, prevPoint, newPoint },
         });
       }
+    } else if ((state.mode = 'remove-vertex')) {
+      if (target.tagName === 'circle') {
+        const polygonId = target.parentElement?.getAttribute('data-polygonId');
+        if (!polygonId) {
+          console.error('svgClickHandler: Missing polygonId');
+          return;
+        }
+        const x = target.getAttribute('cx');
+        const y = target.getAttribute('cy');
+        if (!x || !y) {
+          // here to satisfy typescript - this should never happen
+          console.error('svgClickHandler: Missing x or y');
+          return;
+        }
+        const point = { x: parseInt(x), y: parseInt(y) };
+        dispatch({
+          type: 'REMOVE_VERTEX',
+          payload: { polygonId, point },
+        });
+      }
     }
   };
 

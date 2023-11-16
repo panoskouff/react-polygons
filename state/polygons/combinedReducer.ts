@@ -4,6 +4,7 @@ import {
   setModeIdleReducer,
   editPolygonPointsReducer,
   addVertexToSideReducer,
+  removeVertexReducer,
 } from './reducers';
 import { State, Action } from '#/types/state/polygons';
 
@@ -20,6 +21,8 @@ export const combinedReducer = (state: State, action: Action): State => {
       return { ...state, mode: 'remove-polygon' };
     case 'SET_MODE_MOVE_POLYGON':
       return { ...state, mode: 'move-polygon' };
+    case 'SET_MODE_REMOVE_VERTEX':
+      return { ...state, mode: 'remove-vertex' };
     case 'ADD_POINT':
       return addPointReducer(state, action);
     case 'EDIT_POLYGON_POINTS':
@@ -28,6 +31,8 @@ export const combinedReducer = (state: State, action: Action): State => {
       return removePolygonReducer(state, action);
     case 'ADD_VERTEX_TO_SIDE':
       return addVertexToSideReducer(state, action);
+    case 'REMOVE_VERTEX':
+      return removeVertexReducer(state, action);
     default:
       return state;
   }

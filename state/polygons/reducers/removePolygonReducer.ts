@@ -1,8 +1,8 @@
-import { DeletePolygonAction, State } from '#/types/state/polygons';
+import { RemovePolygonAction, State } from '#/types/state/polygons';
 
 export const removePolygonReducer = (
   state: State,
-  action: DeletePolygonAction
+  action: RemovePolygonAction
 ): State => {
   if (!state.polygons) {
     // here to satisfy typescript - should never happen

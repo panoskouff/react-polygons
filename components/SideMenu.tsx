@@ -50,10 +50,9 @@ export const SideMenu: React.FC = () => {
             disabled={state.mode !== 'idle'}
           />
           <Button
-            text='Remove Vertex - @TODO'
-            css={{ bg: '#9f9f9f6e' }}
+            text='Remove Vertex'
             onClick={() => {
-              alert('todo');
+              dispatch({ type: 'SET_MODE_REMOVE_VERTEX' });
             }}
             disabled={state.mode !== 'idle'}
           />

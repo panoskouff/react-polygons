@@ -1,4 +1,5 @@
 import { AddVertexToSideAction, State } from '#/types/state/polygons';
+import { findIndexOfPoint } from '#/utils';
 
 export const addVertexToSideReducer = (
   state: State,
@@ -6,9 +7,16 @@ export const addVertexToSideReducer = (
 ): State => {
   const { polygonId, prevPoint, newPoint } = action.payload;
 
-  const prevPointIndex = state.polygons?.[polygonId]?.points?.findIndex(
-    (point) => point.x === prevPoint.x && point.y === prevPoint.y
+  const prevPointIndex = findIndexOfPoint(
+    state.polygons?.[polygonId]?.points,
+    prevPoint
   );
+
+  if (prevPointIndex === -1) {
+    // should never happen
+    console.error('addVertexToSideReducer: prevPointIndex is -1');
+    return state;
+  }
 
   return {
     ...state,
