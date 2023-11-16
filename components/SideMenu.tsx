@@ -20,7 +20,13 @@ export const SideMenu: React.FC = () => {
             }}
             disabled={state.mode !== 'idle'}
           />
-
+          <Button
+            text='Move'
+            onClick={() => {
+              dispatch({ type: 'SET_MODE_MOVE' });
+            }}
+            disabled={state.mode !== 'idle'}
+          />
           <Button
             text='Delete'
             onClick={() => {

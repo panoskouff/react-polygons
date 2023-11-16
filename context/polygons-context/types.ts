@@ -1,5 +1,5 @@
 export type State = {
-  mode: 'idle' | 'add' | 'delete';
+  mode: 'idle' | 'add' | 'move' | 'delete';
   selectedPolygon: string | null;
   polygons: {
     [key: string]: {
@@ -15,6 +15,7 @@ export type State = {
 export type setModeIdleAction = { type: 'SET_MODE_IDLE' };
 export type setModeAddAction = { type: 'SET_MODE_ADD' };
 export type setModeDeleteAction = { type: 'SET_MODE_DELETE' };
+export type setModeMoveAction = { type: 'SET_MODE_MOVE' };
 
 export type AddPointAction = {
   type: 'ADD_POINT';
@@ -30,5 +31,6 @@ export type Action =
   | setModeIdleAction
   | setModeAddAction
   | setModeDeleteAction
+  | setModeMoveAction
   | AddPointAction
   | DeletePolygonAction;

@@ -14,6 +14,8 @@ const reducer = (state: State, action: Action): State => {
       return { ...state, mode: 'add' };
     case 'SET_MODE_DELETE':
       return { ...state, mode: 'delete' };
+    case 'SET_MODE_MOVE':
+      return { ...state, mode: 'move' };
     case 'ADD_POINT':
       return addPointReducer(state, action);
     case 'DELETE_POLYGON':
