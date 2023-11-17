@@ -1,0 +1,1 @@
+export { moveVertexInitializer } from './moveVertexInitializer';

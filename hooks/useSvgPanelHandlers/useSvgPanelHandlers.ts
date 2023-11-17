@@ -1,5 +1,5 @@
 import { Action, State } from '#/types/state/polygons';
-import React from 'react';
+import { useCallback, useRef } from 'react';
 import {
   addPoint,
   addVertexToSide,
@@ -7,12 +7,16 @@ import {
   removeVertex,
   removeSide,
 } from './clickHandlers';
+import { Point } from '#/types';
+import { initializeGParentElementRef } from './initializeGParentElementRef';
+import { moveVertexInitializer } from './mouseDownHandlers';
+import { DragHelpers, PointsHelpers, SvgElements } from './types';
 
 export const useSvgPanelHandlers = (
   state: State,
   dispatch: React.Dispatch<Action>
 ) => {
-  const handleClick = React.useCallback(
+  const handleClick = useCallback(
     (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
       if (state.mode === 'add-polygon') {
         addPoint(event, state, dispatch);
@@ -29,5 +33,60 @@ export const useSvgPanelHandlers = (
     [state, dispatch]
   );
 
-  return { SvgPanelClickHandler: handleClick };
+  const elements = useRef<SvgElements>({
+    g: null,
+    polygon: null,
+    prevLine: null,
+    nextLine: null,
+    circle: null,
+  });
+
+  const pointsHelpers = useRef<PointsHelpers>({
+    circleInitialPosition: null,
+    circleVertexIndex: null,
+    polygonPoints: null,
+  });
+
+  const dragHelpers = useRef<DragHelpers>({
+    isDragging: false,
+    dragOffset: { x: 0, y: 0 },
+    lastPosition: { x: 0, y: 0 },
+  });
+
+  const initializeDragFunctionality = useCallback(
+    (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+      dragHelpers.current.lastPosition = { x: event.clientX, y: event.clientY };
+      dragHelpers.current.isDragging = true;
+    },
+    []
+  );
+
+  const handleMouseDown = useCallback(
+    (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+      const target = event.target as SVGElement;
+      if (state.mode === 'move-polygon') {
+        if (target.tagName === 'polygon') {
+          initializeGParentElementRef(target, elements.current);
+          initializeDragFunctionality(event);
+        }
+      } else if (state.mode === 'move-vertex') {
+        if (target.tagName === 'circle') {
+          initializeGParentElementRef(target, elements.current);
+          moveVertexInitializer(
+            event,
+            state,
+            elements.current,
+            pointsHelpers.current
+          );
+          initializeDragFunctionality(event);
+        }
+      }
+    },
+    [state, initializeDragFunctionality]
+  );
+
+  return {
+    svgPanelClickHandler: handleClick,
+    svgPanelMouseDownHandler: handleMouseDown,
+  };
 };

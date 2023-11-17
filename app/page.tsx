@@ -1,6 +1,5 @@
 'use client';
 
-import { styled } from '#/styled-system/jsx';
 import {
   PolygonsContextProvider,
   usePolygonsContext,
@@ -15,7 +14,10 @@ import { useSvgPanelHandlers } from '#/hooks';
 
 const SVGPanel = () => {
   const { state, dispatch } = usePolygonsContext();
-  const { SvgPanelClickHandler } = useSvgPanelHandlers(state, dispatch);
+  const { svgPanelClickHandler: SvgPanelClickHandler } = useSvgPanelHandlers(
+    state,
+    dispatch
+  );
   const isDragging = useRef(false);
   const dragOffset = useRef({ x: 0, y: 0 });
   const lastPosition = useRef({ x: 0, y: 0 });
@@ -27,8 +29,6 @@ const SVGPanel = () => {
   const currentCircleInitialPosition = useRef<Point | null>(null);
   const currentCircleVertexIndex = useRef<number | null>(null);
   const currentPolygonPoints = useRef<Point[] | null>(null);
-
-  console.log('##', state);
 
   const initializeGParentElementRef = (target: SVGElement) => {
     /* <g> needed to find children,polygonId and for handleMouseMove
