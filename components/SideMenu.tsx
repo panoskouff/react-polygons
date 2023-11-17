@@ -28,13 +28,6 @@ export const SideMenu: React.FC = () => {
             disabled={state.mode !== 'idle'}
           />
           <Button
-            text='Remove Polygon'
-            onClick={() => {
-              dispatch({ type: 'SET_MODE_REMOVE_POLYGON' });
-            }}
-            disabled={state.mode !== 'idle'}
-          />
-          <Button
             text='Add Vertex'
             onClick={() => {
               dispatch({ type: 'SET_MODE_ADD_VERTEX_TO_SIDE' });
@@ -42,17 +35,16 @@ export const SideMenu: React.FC = () => {
             disabled={state.mode !== 'idle'}
           />
           <Button
-            text='Move Vertex - @TODO'
-            css={{ bg: '#9f9f9f6e' }}
+            text='Move Vertex'
             onClick={() => {
-              alert('todo');
+              dispatch({ type: 'SET_MODE_MOVE_VERTEX' });
             }}
             disabled={state.mode !== 'idle'}
           />
           <Button
-            text='Remove Vertex'
+            text='Remove Polygon'
             onClick={() => {
-              dispatch({ type: 'SET_MODE_REMOVE_VERTEX' });
+              dispatch({ type: 'SET_MODE_REMOVE_POLYGON' });
             }}
             disabled={state.mode !== 'idle'}
           />
@@ -60,6 +52,13 @@ export const SideMenu: React.FC = () => {
             text='Remove Side'
             onClick={() => {
               dispatch({ type: 'SET_MODE_REMOVE_SIDE' });
+            }}
+            disabled={state.mode !== 'idle'}
+          />
+          <Button
+            text='Remove Vertex'
+            onClick={() => {
+              dispatch({ type: 'SET_MODE_REMOVE_VERTEX' });
             }}
             disabled={state.mode !== 'idle'}
           />
