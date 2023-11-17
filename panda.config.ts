@@ -15,7 +15,14 @@ export default defineConfig({
   exclude: [],
   conditions: {
     extend: {
-      groupHover: '[role=group]:hover &',
+      stateIdle: '.idle &',
+      stateAddPolygon: '.add-polygon &',
+      stateMovePolygon: '.move-polygon &',
+      stateMoveVertex: '.move-vertex &',
+      stateRemovePolygon: '.remove-polygon &',
+      stateAddVertexToSide: '.add-vertex-to-side &',
+      stateRemoveVertex: '.remove-vertex &',
+      stateRemoveSide: '.remove-side &',
     },
   },
   theme: {

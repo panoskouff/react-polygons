@@ -16,16 +16,22 @@ export const Polygons: React.FC = () => {
           return `${point.x},${point.y}`;
         });
         const pointsString = points.join(' ');
-
         return (
-          <styled.g data-polygonId={polygonKey} role='group'>
+          <styled.g data-polygonId={polygonKey}>
             {polygon.isComplete && (
               <styled.polygon
                 key={polygonKey}
                 points={pointsString}
-                fill='#46ff00'
-                stroke='#d282f3'
-                strokeWidth='2'
+                fill='#26e972e8'
+                _hover={{
+                  _stateMovePolygon: {
+                    cursor: 'grab',
+                  },
+                  _stateRemovePolygon: {
+                    fill: '#ff0202c9',
+                    cursor: 'crosshair',
+                  },
+                }}
               />
             )}
             {polygon.points.map((point, index) => {
@@ -38,11 +44,22 @@ export const Polygons: React.FC = () => {
                     y1={point.y}
                     x2={nextPoint.x}
                     y2={nextPoint.y}
-                    stroke='#256eff'
+                    stroke={'#232323'}
                     strokeWidth='5'
-                    opacity={{ base: '1', _groupHover: '1' }}
-                    transition='opacity 0.6s'
-                    _hover={{ cursor: 'pointer' }}
+                    opacity={{
+                      base: 1,
+                    }}
+                    transition='stroke 0.3s '
+                    _hover={{
+                      _stateAddVertexToSide: {
+                        cursor: 'pointer',
+                        stroke: '#e654ff',
+                      },
+                      _stateRemoveSide: {
+                        stroke: '#ff0202c9',
+                        cursor: 'crosshair',
+                      },
+                    }}
                   />
                 );
               }
@@ -62,6 +79,16 @@ export const Polygons: React.FC = () => {
                   stroke='black'
                   strokeWidth='3'
                   fill='orangered'
+                  transition='stroke 0.3s '
+                  _hover={{
+                    _stateMoveVertex: {
+                      cursor: 'pointer',
+                    },
+                    _stateRemoveVertex: {
+                      stroke: '#ff0202c9',
+                      cursor: 'crosshair',
+                    },
+                  }}
                 />
               );
             })}

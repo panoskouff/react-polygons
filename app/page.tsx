@@ -20,12 +20,11 @@ const SVGPanel = () => {
     svgPanelMouseUpHandler,
   } = useSvgPanelHandlers(state, dispatch);
 
-  // console.log('👈', state);
-
   return (
     <>
       <Position {...expanded}>
         <svg
+          className={state.mode}
           width='100%'
           height='100%'
           onClick={svgPanelClickHandler}
