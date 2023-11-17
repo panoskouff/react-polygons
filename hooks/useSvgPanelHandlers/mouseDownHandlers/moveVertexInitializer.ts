@@ -13,7 +13,7 @@ export const moveVertexInitializer = (
 
   if (!polygonId || !vertexIndexStr || !elements.g) {
     console.error(
-      'handleMouseDown: Missing polygonId or vertexIndex or <g> parent'
+      'handleMouseDown moveVertexInitializer: Missing polygonId or vertexIndex or <g> parent'
     );
     return;
   }
@@ -24,7 +24,7 @@ export const moveVertexInitializer = (
   const y = target.getAttribute('cy');
   if (!x || !y) {
     // here to satisfy typescript - this should never happen
-    console.error('handleMouseDown: Missing x or y');
+    console.error('handleMouseDown moveVertexInitializer: Missing x or y');
     return;
   }
   const point = { x: parseInt(x), y: parseInt(y) };

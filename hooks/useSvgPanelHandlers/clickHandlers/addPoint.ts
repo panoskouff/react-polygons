@@ -1,8 +1,7 @@
-import { Action, State } from '#/types/state/polygons';
+import { Action } from '#/types/state/polygons';
 
 export const addPoint = (
   event: React.MouseEvent<SVGSVGElement, MouseEvent>,
-  state: State,
   dispatch: React.Dispatch<Action>
 ) => {
   const target = event.target as SVGElement;

@@ -1,8 +1,7 @@
-import { Action, State } from '#/types/state/polygons';
+import { Action } from '#/types/state/polygons';
 
 export const addVertexToSide = (
   event: React.MouseEvent<SVGSVGElement, MouseEvent>,
-  state: State,
   dispatch: React.Dispatch<Action>
 ) => {
   const target = event.target as SVGElement;
@@ -10,14 +9,14 @@ export const addVertexToSide = (
   if (target.tagName === 'line') {
     const polygonId = target.parentElement?.getAttribute('data-polygonId');
     if (!polygonId) {
-      console.error('svgClickHandler: Missing polygonId');
+      console.error('svgClickHandler addVertexToSide: Missing polygonId');
       return;
     }
     const x = target.getAttribute('x1');
     const y = target.getAttribute('y1');
     if (!x || !y) {
       // here to satisfy typescript - this should never happen
-      console.error('svgClickHandler: Missing x or y');
+      console.error('svgClickHandler addVertexToSide: Missing x or y');
       return;
     }
     const prevPoint = { x: parseInt(x), y: parseInt(y) };

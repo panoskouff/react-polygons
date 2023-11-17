@@ -1,4 +1,4 @@
-export const initializeGParentElementRef = (
+export const initializeGParentElement = (
   target: SVGElement,
   elements: { g: SVGGElement | null }
 ) => {
@@ -12,7 +12,9 @@ export const initializeGParentElementRef = (
     target.tagName === 'circle'
   ) {
     if ((target.parentNode as SVGGElement)?.tagName !== 'g') {
-      console.error('handleMouseDown: Missing parent <g> element');
+      console.error(
+        'handleMouseDown initializeGParentElement: Missing parent <g> element'
+      );
       return;
     }
 

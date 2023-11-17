@@ -1,15 +1,14 @@
-import { Action, State } from '#/types/state/polygons';
+import { Action } from '#/types/state/polygons';
 
 export const removeSide = (
   event: React.MouseEvent<SVGSVGElement, MouseEvent>,
-  state: State,
   dispatch: React.Dispatch<Action>
 ) => {
   const target = event.target as SVGElement;
   if (target.tagName === 'line') {
     const polygonId = target.parentElement?.getAttribute('data-polygonId');
     if (!polygonId) {
-      console.error('svgClickHandler: Missing polygonId');
+      console.error('svgClickHandler removeSide: Missing polygonId');
       return;
     }
     const x1 = target.getAttribute('x1');
@@ -18,7 +17,7 @@ export const removeSide = (
     const y2 = target.getAttribute('y2');
     if (!x1 || !y1 || !x2 || !y2) {
       // here to satisfy typescript - this should never happen
-      console.error('svgClickHandler: Missing Points of line');
+      console.error('svgClickHandler removeSide: Missing Points of line');
       return;
     }
     const point1 = { x: parseInt(x1), y: parseInt(y1) };
