@@ -11,10 +11,11 @@ import { TopMenu } from '#/components/TopMenu';
 import { Polygons } from '#/components/Polygons';
 import { useRef } from 'react';
 import { Point } from '#/types';
+import { useSvgPanelHandlers } from '#/hooks';
 
-// @todo rename this
-const SVGBoard = () => {
+const SVGPanel = () => {
   const { state, dispatch } = usePolygonsContext();
+  const { SvgPanelClickHandler } = useSvgPanelHandlers(state, dispatch);
   const isDragging = useRef(false);
   const dragOffset = useRef({ x: 0, y: 0 });
   const lastPosition = useRef({ x: 0, y: 0 });
@@ -270,107 +271,13 @@ const SVGBoard = () => {
     dragOffset.current = { x: 0, y: 0 };
   };
 
-  const handleClick = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
-    const target = event.target as SVGElement;
-
-    if (state.mode === 'add-polygon') {
-      if (target.tagName === 'svg' || target.tagName === 'circle') {
-        dispatch({
-          type: 'ADD_POINT',
-          payload: {
-            point: { x: event.clientX, y: event.clientY },
-            clickedOnPoint: target.tagName === 'circle',
-          },
-        });
-      }
-      return;
-    } else if (state.mode === 'remove-polygon') {
-      if (target.tagName === 'polygon') {
-        const polygonId = target.parentElement?.getAttribute('data-polygonId');
-        if (!polygonId) {
-          console.error('svgClickHandler: Missing polygonId');
-          return;
-        }
-
-        dispatch({
-          type: 'REMOVE_POLYGON',
-          payload: { polygonId },
-        });
-      }
-    } else if (state.mode === 'add-vertex-to-side') {
-      if (target.tagName === 'line') {
-        const polygonId = target.parentElement?.getAttribute('data-polygonId');
-        if (!polygonId) {
-          console.error('svgClickHandler: Missing polygonId');
-          return;
-        }
-        const x = target.getAttribute('x1');
-        const y = target.getAttribute('y1');
-        if (!x || !y) {
-          // here to satisfy typescript - this should never happen
-          console.error('svgClickHandler: Missing x or y');
-          return;
-        }
-        const prevPoint = { x: parseInt(x), y: parseInt(y) };
-        const newPoint = { x: event.clientX, y: event.clientY };
-        dispatch({
-          type: 'ADD_VERTEX_TO_SIDE',
-          payload: { polygonId, prevPoint, newPoint },
-        });
-      }
-    } else if (state.mode === 'remove-vertex') {
-      if (target.tagName === 'circle') {
-        const polygonId = target.parentElement?.getAttribute('data-polygonId');
-        if (!polygonId) {
-          console.error('svgClickHandler: Missing polygonId');
-          return;
-        }
-        const x = target.getAttribute('cx');
-        const y = target.getAttribute('cy');
-        if (!x || !y) {
-          // here to satisfy typescript - this should never happen
-          console.error('svgClickHandler: Missing x or y');
-          return;
-        }
-        const point = { x: parseInt(x), y: parseInt(y) };
-        dispatch({
-          type: 'REMOVE_VERTEX',
-          payload: { polygonId, point },
-        });
-      }
-    } else if (state.mode === 'remove-side') {
-      if (target.tagName === 'line') {
-        const polygonId = target.parentElement?.getAttribute('data-polygonId');
-        if (!polygonId) {
-          console.error('svgClickHandler: Missing polygonId');
-          return;
-        }
-        const x1 = target.getAttribute('x1');
-        const y1 = target.getAttribute('y1');
-        const x2 = target.getAttribute('x2');
-        const y2 = target.getAttribute('y2');
-        if (!x1 || !y1 || !x2 || !y2) {
-          // here to satisfy typescript - this should never happen
-          console.error('svgClickHandler: Missing Points of line');
-          return;
-        }
-        const point1 = { x: parseInt(x1), y: parseInt(y1) };
-        const point2 = { x: parseInt(x2), y: parseInt(y2) };
-        dispatch({
-          type: 'REMOVE_SIDE',
-          payload: { polygonId, point1, point2 },
-        });
-      }
-    }
-  };
-
   return (
     <>
       <Position {...expanded}>
         <svg
           width='100%'
           height='100%'
-          onClick={handleClick}
+          onClick={SvgPanelClickHandler}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
@@ -400,7 +307,7 @@ export default function Home() {
     linear-gradient(to bottom, grey 1px, transparent 1px)'
           h='100%'
         >
-          <SVGBoard />
+          <SVGPanel />
         </Background>
       </Position>
     </PolygonsContextProvider>
