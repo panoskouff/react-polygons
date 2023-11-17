@@ -34,7 +34,6 @@ const SVGBoard = () => {
   ) => {
     const target = event.target as SVGElement;
     if (state.mode === 'move-polygon') {
-      console.log('handleMouseDown called', target.tagName);
       if (target.tagName === 'polygon') {
         if ((target.parentNode as SVGGElement)?.tagName !== 'g') {
           console.error('handleMouseDown: Missing parent <g> element');
@@ -149,8 +148,6 @@ const SVGBoard = () => {
         return `${acc} ${point.x},${point.y}`;
       }, '');
 
-      console.log({ polygonPoints, newPolygonPoints });
-
       requestAnimationFrame(() => {
         currentCircleElement.current?.setAttribute('cx', newPoint.x.toString());
         currentCircleElement.current?.setAttribute('cy', newPoint.y.toString());
@@ -178,16 +175,14 @@ const SVGBoard = () => {
   const handleMouseUp = (
     event: React.MouseEvent<SVGSVGElement, MouseEvent>
   ) => {
-    console.log('handleMouseUp called');
+    // no early returns here so we do proper cleanup
+    const polygonId = currentGElement.current?.getAttribute('data-polygonId');
+    isDragging.current = false;
+
     if (state.mode === 'move-polygon') {
-      if (isDragging.current && currentGElement.current) {
-        isDragging.current = false;
-        const polygonId =
-          currentGElement.current.getAttribute('data-polygonId');
-        if (!polygonId) {
-          console.error('handleMouseUp: Missing polygonId');
-          return;
-        }
+      if (!currentGElement.current || !polygonId) {
+        console.error('handleMouseUp: Missing ref(s) or polygonId');
+      } else {
         const polygonPoints = state.polygons[polygonId].points;
         const newPoints = polygonPoints.map((point) => {
           return {
@@ -200,60 +195,52 @@ const SVGBoard = () => {
           payload: { polygonId, points: newPoints },
         });
         currentGElement.current.setAttribute('transform', `translate(0, 0)`);
-        dragOffset.current = { x: 0, y: 0 };
-        currentGElement.current = null;
       }
     } else if (state.mode === 'move-vertex') {
-      isDragging.current = false;
-
-      // @todo refactor to try catch
-      const polygonId = currentGElement.current?.getAttribute('data-polygonId');
       if (
-        currentPolygonPoints.current !== null &&
-        currentCircleVertexIndex.current !== null &&
-        !!polygonId
+        !currentPolygonPoints.current ||
+        (!currentCircleVertexIndex.current &&
+          currentCircleVertexIndex.current !== 0) ||
+        !currentCircleInitialPosition.current ||
+        !polygonId
       ) {
-        let newPoint = null;
-        if (currentCircleInitialPosition.current) {
-          newPoint = {
-            x: currentCircleInitialPosition.current.x + dragOffset.current.x,
-            y: currentCircleInitialPosition.current.y + dragOffset.current.y,
-          };
-        }
+        console.error('handleMouseUp: Missing ref(s) or polygonId');
+      } else {
+        const newPoint = {
+          x: currentCircleInitialPosition.current.x + dragOffset.current.x,
+          y: currentCircleInitialPosition.current.y + dragOffset.current.y,
+        };
 
-        if (newPoint !== null) {
-          currentPolygonPoints.current[currentCircleVertexIndex.current] =
-            newPoint;
-          if (currentCircleVertexIndex.current === 0) {
-            /* first and last point are always the
+        currentPolygonPoints.current[currentCircleVertexIndex.current] =
+          newPoint;
+        if (currentCircleVertexIndex.current === 0) {
+          /* first and last point are always the
                 same to complete the polygon */
-            currentPolygonPoints.current[
-              currentPolygonPoints.current.length - 1
-            ] = newPoint;
-          }
-          const newPoints = [...currentPolygonPoints.current];
-
-          dispatch({
-            type: 'EDIT_POLYGON_POINTS',
-            payload: { polygonId, points: newPoints },
-          });
+          currentPolygonPoints.current[
+            currentPolygonPoints.current.length - 1
+          ] = newPoint;
         }
-      }
+        const newPoints = [...currentPolygonPoints.current];
 
-      dragOffset.current = { x: 0, y: 0 };
-      currentCircleElement.current = null;
-      currentNextLineElement.current = null;
-      currentPrevLineElement.current = null;
-      currentPolygonElement.current = null;
-      currentGElement.current = null;
-      currentPolygonPoints.current = null;
-      currentCircleVertexIndex.current = null;
+        dispatch({
+          type: 'EDIT_POLYGON_POINTS',
+          payload: { polygonId, points: newPoints },
+        });
+      }
     }
+
+    currentCircleElement.current = null;
+    currentNextLineElement.current = null;
+    currentPrevLineElement.current = null;
+    currentPolygonElement.current = null;
+    currentPolygonPoints.current = null;
+    currentCircleVertexIndex.current = null;
+    currentGElement.current = null;
+    dragOffset.current = { x: 0, y: 0 };
   };
 
   const handleClick = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     const target = event.target as SVGElement;
-    console.log('svgClickHandler called', target.tagName);
 
     if (state.mode === 'add-polygon') {
       if (target.tagName === 'svg' || target.tagName === 'circle') {
