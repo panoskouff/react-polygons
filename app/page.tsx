@@ -29,29 +29,50 @@ const SVGBoard = () => {
 
   console.log('##', state);
 
+  const initializeGParentElementRef = (target: SVGElement) => {
+    /* <g> needed to find children,polygonId and for handleMouseMove
+    we need to initialize it only for the correct states or if a graph
+    element is the one that was clicked so we can't just have this code
+    once, we have to call it in multiple places */
+    if (
+      target.tagName === 'polygon' ||
+      target.tagName === 'line' ||
+      target.tagName === 'circle'
+    ) {
+      if ((target.parentNode as SVGGElement)?.tagName !== 'g') {
+        console.error('handleMouseDown: Missing parent <g> element');
+        return;
+      }
+      currentGElement.current = target.parentNode as SVGGElement;
+    }
+  };
+
   const handleMouseDown = (
     event: React.MouseEvent<SVGSVGElement, MouseEvent>
   ) => {
     const target = event.target as SVGElement;
     if (state.mode === 'move-polygon') {
       if (target.tagName === 'polygon') {
-        if ((target.parentNode as SVGGElement)?.tagName !== 'g') {
-          console.error('handleMouseDown: Missing parent <g> element');
-          return;
-        }
-        currentGElement.current = target.parentNode as SVGGElement;
+        initializeGParentElementRef(target);
         lastPosition.current = { x: event.clientX, y: event.clientY };
         isDragging.current = true;
       }
     } else if (state.mode === 'move-vertex') {
       if (target.tagName === 'circle') {
-        const polygonId = target.parentElement?.getAttribute('data-polygonId');
-        const vertexIndex = target.getAttribute('data-vertex-index');
-        if (!polygonId || !vertexIndex) {
-          console.error('handleMouseDown: Missing polygonId or vertexIndex');
+        initializeGParentElementRef(target);
+        const polygonId =
+          currentGElement.current?.getAttribute('data-polygonId');
+        const vertexIndexStr = target.getAttribute('data-vertex-index');
+        if (!polygonId || !vertexIndexStr || !currentGElement.current) {
+          console.error(
+            'handleMouseDown: Missing polygonId or vertexIndex or <g> parent'
+          );
           return;
         }
-        currentCircleVertexIndex.current = parseInt(vertexIndex);
+        const vertexIndex = parseInt(vertexIndexStr);
+        /* vertex index will save us a lookup in polygon points and
+        also is needed to figure out which lines are adjacent */
+        currentCircleVertexIndex.current = vertexIndex;
         const x = target.getAttribute('cx');
         const y = target.getAttribute('cy');
         if (!x || !y) {
@@ -60,20 +81,21 @@ const SVGBoard = () => {
           return;
         }
         const point = { x: parseInt(x), y: parseInt(y) };
+        /* We need to keep initial position to calculate the final that
+        is going to be committed to state on mouse up */
         currentCircleInitialPosition.current = point;
-        currentGElement.current = target.parentNode as SVGGElement;
+        /* Get a reference to all elements related to this point so we
+        can move them while dragging the point */
         currentCircleElement.current = target as SVGCircleElement;
         const lines = currentGElement.current.querySelectorAll('line');
-        currentNextLineElement.current = lines[
-          parseInt(vertexIndex)
-        ] as SVGLineElement;
-        if (parseInt(vertexIndex) === 0) {
+        currentNextLineElement.current = lines[vertexIndex] as SVGLineElement;
+        if (vertexIndex === 0) {
           currentPrevLineElement.current = lines[
             lines.length - 1
           ] as SVGLineElement;
         } else {
           currentPrevLineElement.current = lines[
-            parseInt(vertexIndex) - 1
+            vertexIndex - 1
           ] as SVGLineElement;
         }
         currentPolygonElement.current =
@@ -86,21 +108,32 @@ const SVGBoard = () => {
     }
   };
 
+  const calculatePointerDragOffset = (
+    event: React.MouseEvent<SVGSVGElement, MouseEvent>
+  ) => {
+    const deltaX = event.clientX - lastPosition.current.x;
+    const deltaY = event.clientY - lastPosition.current.y;
+
+    dragOffset.current = {
+      x: dragOffset.current.x + deltaX,
+      y: dragOffset.current.y + deltaY,
+    };
+    lastPosition.current = { x: event.clientX, y: event.clientY };
+  };
+
   const handleMouseMove = (
     event: React.MouseEvent<SVGSVGElement, MouseEvent>
   ) => {
-    if (state.mode === 'move-polygon') {
-      if (!isDragging.current || !currentGElement.current) return;
-      const deltaX = event.clientX - lastPosition.current.x;
-      const deltaY = event.clientY - lastPosition.current.y;
-      dragOffset.current = {
-        x: dragOffset.current.x + deltaX,
-        y: dragOffset.current.y + deltaY,
-      };
-      lastPosition.current = { x: event.clientX, y: event.clientY };
+    if (!isDragging.current) {
+      return;
+    }
 
+    if (state.mode === 'move-polygon') {
+      if (!currentGElement.current) return;
       requestAnimationFrame(() => {
         if (currentGElement.current) {
+          calculatePointerDragOffset(event);
+
           currentGElement.current.setAttribute(
             'transform',
             `translate(${dragOffset.current.x}, ${dragOffset.current.y})`
@@ -108,13 +141,8 @@ const SVGBoard = () => {
         }
       });
     } else if (state.mode === 'move-vertex') {
-      if (!isDragging.current) {
-        return;
-      }
-
       if (
         !currentCircleElement.current ||
-        !currentCircleInitialPosition.current ||
         (!currentCircleVertexIndex.current &&
           currentCircleVertexIndex.current !== 0) ||
         !currentPolygonPoints.current
@@ -123,32 +151,35 @@ const SVGBoard = () => {
         return;
       }
 
-      const deltaX = event.clientX - lastPosition.current.x;
-      const deltaY = event.clientY - lastPosition.current.y;
-
-      dragOffset.current = {
-        x: dragOffset.current.x + deltaX,
-        y: dragOffset.current.y + deltaY,
-      };
-      lastPosition.current = { x: event.clientX, y: event.clientY };
-
-      const newPoint = {
-        x: currentCircleInitialPosition.current.x + dragOffset.current.x,
-        y: currentCircleInitialPosition.current.y + dragOffset.current.y,
-      };
-
       const polygonPoints = currentPolygonPoints.current;
-
-      const newPolygonPoints = polygonPoints.reduce((acc, point, index) => {
-        if (index === currentCircleVertexIndex.current) {
-          return `${acc} ${newPoint.x},${newPoint.y}`;
-        } else if (index === polygonPoints.length - 1) {
-          return acc;
-        }
-        return `${acc} ${point.x},${point.y}`;
-      }, '');
-
       requestAnimationFrame(() => {
+        if (
+          !currentCircleInitialPosition.current ||
+          !currentCircleInitialPosition.current.x ||
+          !currentCircleInitialPosition.current.y
+        ) {
+          console.error(
+            'handleMouseMove: requestAnimationFrame: Missing ref(s)'
+          );
+          return;
+        }
+
+        calculatePointerDragOffset(event);
+
+        const newPoint = {
+          x: currentCircleInitialPosition.current.x + dragOffset.current.x,
+          y: currentCircleInitialPosition.current.y + dragOffset.current.y,
+        };
+
+        const newPolygonPoints = polygonPoints.reduce((acc, point, index) => {
+          if (index === currentCircleVertexIndex.current) {
+            return `${acc} ${newPoint.x},${newPoint.y}`;
+          } else if (index === polygonPoints.length - 1) {
+            return acc;
+          }
+          return `${acc} ${point.x},${point.y}`;
+        }, '');
+
         currentCircleElement.current?.setAttribute('cx', newPoint.x.toString());
         currentCircleElement.current?.setAttribute('cy', newPoint.y.toString());
         currentNextLineElement.current?.setAttribute(
