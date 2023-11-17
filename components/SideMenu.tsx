@@ -21,16 +21,16 @@ export const SideMenu: React.FC = () => {
             disabled={state.mode !== 'idle'}
           />
           <Button
-            text='Move Polygon'
+            text='Add Vertex'
             onClick={() => {
-              dispatch({ type: 'SET_MODE_MOVE_POLYGON' });
+              dispatch({ type: 'SET_MODE_ADD_VERTEX_TO_SIDE' });
             }}
             disabled={state.mode !== 'idle'}
           />
           <Button
-            text='Add Vertex'
+            text='Move Polygon'
             onClick={() => {
-              dispatch({ type: 'SET_MODE_ADD_VERTEX_TO_SIDE' });
+              dispatch({ type: 'SET_MODE_MOVE_POLYGON' });
             }}
             disabled={state.mode !== 'idle'}
           />
