@@ -5,6 +5,7 @@ export type State = {
     | 'idle'
     | 'add-polygon'
     | 'move-polygon'
+    | 'move-vertex'
     | 'remove-polygon'
     | 'add-vertex-to-side'
     | 'remove-vertex'
@@ -29,6 +30,7 @@ export type setModeAddVertexToSideAction = {
 export type setModeRemovePolygonAction = { type: 'SET_MODE_REMOVE_POLYGON' };
 export type setModeRemoveSideAction = { type: 'SET_MODE_REMOVE_SIDE' };
 export type setModeMovePolygonAction = { type: 'SET_MODE_MOVE_POLYGON' };
+export type setModeMoveVertexAction = { type: 'SET_MODE_MOVE_VERTEX' };
 export type setModeRemoveVertexAction = { type: 'SET_MODE_REMOVE_VERTEX' };
 
 export type AddPointAction = {
@@ -69,6 +71,7 @@ export type Action =
   | setModeRemoveVertexAction
   | setModeAddVertexToSideAction
   | setModeRemoveSideAction
+  | setModeMoveVertexAction
   | AddPointAction
   | AddVertexToSideAction
   | EditPolygonPointsAction

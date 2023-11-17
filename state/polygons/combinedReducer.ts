@@ -26,6 +26,8 @@ export const combinedReducer = (state: State, action: Action): State => {
       return { ...state, mode: 'remove-vertex' };
     case 'SET_MODE_REMOVE_SIDE':
       return { ...state, mode: 'remove-side' };
+    case 'SET_MODE_MOVE_VERTEX':
+      return { ...state, mode: 'move-vertex' };
     case 'ADD_POINT':
       return addPointReducer(state, action);
     case 'EDIT_POLYGON_POINTS':

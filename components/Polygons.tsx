@@ -42,7 +42,7 @@ export const Polygons: React.FC = () => {
                     y2={nextPoint.y}
                     stroke='#256eff'
                     strokeWidth='5'
-                    opacity={{ base: '0', _groupHover: '1' }}
+                    opacity={{ base: '1', _groupHover: '1' }}
                     transition='opacity 0.6s'
                     _hover={{ cursor: 'pointer' }}
                   />
@@ -56,6 +56,7 @@ export const Polygons: React.FC = () => {
               }
               return (
                 <styled.circle
+                  data-vertex-index={index}
                   key={`${polygonKey}-point-${index}`}
                   cx={point.x}
                   cy={point.y}
