@@ -7,7 +7,7 @@ export const movePolygonCommit = (
   elements: SvgElements,
   dragHelpers: DragHelpers
 ) => {
-  const polygonId = elements.g?.getAttribute('data-polygonId');
+  const polygonId = elements.g?.getAttribute('data-polygon-id');
   if (!elements.g || !polygonId) {
     console.error(
       'handleMouseUp movePolygonCommit: Missing ref(s) or polygonId'

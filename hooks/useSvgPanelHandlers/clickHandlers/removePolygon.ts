@@ -6,7 +6,7 @@ export const removePolygon = (
 ) => {
   const target = event.target as SVGElement;
   if (target.tagName === 'polygon') {
-    const polygonId = target.parentElement?.getAttribute('data-polygonId');
+    const polygonId = target.parentElement?.getAttribute('data-polygon-id');
     if (!polygonId) {
       console.error('svgClickHandler removePolygon: Missing polygonId');
       return;

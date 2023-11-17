@@ -6,7 +6,7 @@ export const removeVertex = (
 ) => {
   const target = event.target as SVGElement;
   if (target.tagName === 'circle') {
-    const polygonId = target.parentElement?.getAttribute('data-polygonId');
+    const polygonId = target.parentElement?.getAttribute('data-polygon-id');
     if (!polygonId) {
       console.error('svgClickHandler removeVertex: Missing polygonId');
       return;

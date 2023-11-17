@@ -7,7 +7,7 @@ export const moveVertexCommit = (
   pointsHelpers: PointsHelpers,
   dragHelpers: DragHelpers
 ) => {
-  const polygonId = elements.g?.getAttribute('data-polygonId');
+  const polygonId = elements.g?.getAttribute('data-polygon-id');
   if (
     !pointsHelpers.polygonPoints ||
     (!pointsHelpers.circleVertexIndex &&

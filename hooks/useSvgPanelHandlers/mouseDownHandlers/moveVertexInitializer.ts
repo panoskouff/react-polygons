@@ -8,7 +8,7 @@ export const moveVertexInitializer = (
   pointsHelpers: PointsHelpers
 ) => {
   const target = event.target as SVGCircleElement;
-  const polygonId = elements.g?.getAttribute('data-polygonId');
+  const polygonId = elements.g?.getAttribute('data-polygon-id');
   const vertexIndexStr = target.getAttribute('data-vertex-index');
 
   if (!polygonId || !vertexIndexStr || !elements.g) {

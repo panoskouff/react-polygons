@@ -7,7 +7,7 @@ export const addVertexToSide = (
   const target = event.target as SVGElement;
 
   if (target.tagName === 'line') {
-    const polygonId = target.parentElement?.getAttribute('data-polygonId');
+    const polygonId = target.parentElement?.getAttribute('data-polygon-id');
     if (!polygonId) {
       console.error('svgClickHandler addVertexToSide: Missing polygonId');
       return;

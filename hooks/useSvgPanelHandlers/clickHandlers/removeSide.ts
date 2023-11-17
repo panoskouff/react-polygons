@@ -6,7 +6,7 @@ export const removeSide = (
 ) => {
   const target = event.target as SVGElement;
   if (target.tagName === 'line') {
-    const polygonId = target.parentElement?.getAttribute('data-polygonId');
+    const polygonId = target.parentElement?.getAttribute('data-polygon-id');
     if (!polygonId) {
       console.error('svgClickHandler removeSide: Missing polygonId');
       return;
