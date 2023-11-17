@@ -1,12 +1,10 @@
-// import { Row, Text } from '#/atoms';
 import { usePolygonsContext } from '#/context/polygons-context/PolygonsContext';
 import { styled } from '#/styled-system/jsx';
 
 export const Polygons: React.FC = () => {
-  const { state, dispatch } = usePolygonsContext();
+  const { state } = usePolygonsContext();
   const polygonKeys = Object.keys(state.polygons ?? {});
 
-  // @todo fix keys
   return (
     <>
       {polygonKeys.map((polygonKey) => {

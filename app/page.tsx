@@ -20,7 +20,7 @@ const SVGPanel = () => {
     svgPanelMouseUpHandler,
   } = useSvgPanelHandlers(state, dispatch);
 
-  console.log('👈', state);
+  // console.log('👈', state);
 
   return (
     <>

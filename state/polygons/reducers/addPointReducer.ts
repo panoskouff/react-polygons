@@ -1,4 +1,4 @@
-import { generateKey, arePointsNearby } from '#/utils';
+import { arePointsNearby } from '#/utils';
 import { AddPointAction, State } from '#/types/state/polygons';
 
 export const addPointReducer = (
@@ -6,7 +6,7 @@ export const addPointReducer = (
   action: AddPointAction
 ): State => {
   if (state.selectedPolygon === null) {
-    const newPolygonKey = generateKey('mock-user-id', 'mock-session-id');
+    const newPolygonKey = Date.now().toString();
 
     return {
       ...state,

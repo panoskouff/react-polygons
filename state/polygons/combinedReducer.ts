@@ -10,7 +10,7 @@ import {
 import { State, Action } from '#/types/state/polygons';
 
 export const combinedReducer = (state: State, action: Action): State => {
-  console.log('combinedReducer', action.type);
+  // console.log('combinedReducer', action.type);
   switch (action.type) {
     case 'SET_MODE_IDLE':
       return setModeIdleReducer(state, action);
