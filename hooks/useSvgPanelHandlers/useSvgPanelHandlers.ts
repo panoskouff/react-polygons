@@ -109,25 +109,20 @@ export const useSvgPanelHandlers = (
       const target = event.target as SVGElement;
 
       if (state.mode === 'move-polygon') {
-        if (target.tagName === 'polygon') {
-          movePolygonCommit(
-            state,
-            dispatch,
-            elements.current,
-            dragHelpers.current
-          );
-        }
+        movePolygonCommit(
+          state,
+          dispatch,
+          elements.current,
+          dragHelpers.current
+        );
       } else if (state.mode === 'move-vertex') {
-        if (target.tagName === 'circle') {
-          moveVertexCommit(
-            dispatch,
-            elements.current,
-            pointsHelpers.current,
-            dragHelpers.current
-          );
-        }
+        moveVertexCommit(
+          dispatch,
+          elements.current,
+          pointsHelpers.current,
+          dragHelpers.current
+        );
       }
-
       cleanUpRefs(elements.current, pointsHelpers.current, dragHelpers.current);
     },
     [state]

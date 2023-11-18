@@ -15,10 +15,12 @@ export const movePolygon = (
     if (elements.g) {
       calculatePointsDragOffset(event, dragHelpers);
 
-      elements.g.setAttribute(
-        'transform',
-        `translate(${dragHelpers.dragOffset.x}, ${dragHelpers.dragOffset.y})`
-      );
+      if (dragHelpers.isDragging) {
+        elements.g.setAttribute(
+          'transform',
+          `translate(${dragHelpers.dragOffset.x}, ${dragHelpers.dragOffset.y})`
+        );
+      }
     }
   });
 };

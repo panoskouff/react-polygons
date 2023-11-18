@@ -12,6 +12,7 @@ import { useSvgPanelHandlers } from '#/hooks';
 
 const SVGPanel = () => {
   const { state, dispatch } = usePolygonsContext();
+  console.log('render', state.polygons);
 
   const {
     svgPanelClickHandler,

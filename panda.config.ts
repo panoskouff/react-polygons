@@ -17,10 +17,10 @@ export default defineConfig({
     extend: {
       stateIdle: '.idle &',
       stateAddPolygon: '.add-polygon &',
+      stateAddVertexToSide: '.add-vertex-to-side &',
       stateMovePolygon: '.move-polygon &',
       stateMoveVertex: '.move-vertex &',
       stateRemovePolygon: '.remove-polygon &',
-      stateAddVertexToSide: '.add-vertex-to-side &',
       stateRemoveVertex: '.remove-vertex &',
       stateRemoveSide: '.remove-side &',
     },
