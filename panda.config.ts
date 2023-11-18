@@ -60,6 +60,11 @@ export default defineConfig({
       easings: {
         swiftDecelerate: { value: 'cubic-bezier(0.55, 0.055, 0.675, 0.19)' },
       },
+      shadows: {
+        standard: { value: '0px 5px 15px rgba(0, 0, 0, 0.35)' },
+        variant: { value: '0px 0px 12px rgba(0, 0, 0, 0.35)' },
+        buttonPrimary: { value: '0px 1px 4px rgba(0, 0, 0, 0.16)' },
+      },
     },
     semanticTokens: {
       sizes: {

@@ -5,7 +5,6 @@ import '../theme/css/globals.css';
 import { mulish, tinos } from '#/theme/fonts';
 import { getServerSession } from 'next-auth';
 import SessionProvider from '#/components/SessionProvider';
-import NavMenu from '#/components/NavMenu';
 
 export const metadata = {
   title: 'Create Next App',
@@ -17,15 +16,12 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  console.log('1');
   const session = await getServerSession();
+
   return (
     <html lang='en' className={`${mulish.variable} ${tinos.variable}`}>
       <body>
-        <SessionProvider session={session}>
-          <NavMenu />
-          {children}
-        </SessionProvider>
+        <SessionProvider session={session}>{children}</SessionProvider>
       </body>
     </html>
   );

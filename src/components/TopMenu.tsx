@@ -1,31 +1,50 @@
-import { usePolygonsContext } from '#/context/polygons-context/PolygonsContext';
-import { Padding, Background, Row, Button } from '#/atoms';
+'use client';
 
-export const TopMenu: React.FC = () => {
-  const { dispatch, state } = usePolygonsContext();
+import { styled } from '#/styled-system/jsx';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { Padding, Background, Row, Button, Text } from '#/atoms';
 
-  if (state.mode === 'idle') {
+export const TopMenu = () => {
+  const { data: session, status } = useSession();
+
+  if (status === 'loading') {
     return null;
   }
 
+  const userLoggedIn = status === 'authenticated';
+
+  if (!userLoggedIn) {
+    return <Button text='Sign In' onClick={() => signIn()} />;
+  }
+
+  const userFirstName = session?.user?.name?.split(' ')[0];
+  const userImage = session?.user?.image;
+
   return (
-    <Background
-      bg='#fff'
-      css={{
-        borderRadius: 'md',
-        boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-      }}
-    >
-      <Padding p='10px'>
-        <Row gap='10px'>
-          <Button
-            text='Cancel'
-            onClick={() => {
-              dispatch({ type: 'SET_MODE_IDLE' });
-            }}
-          />
-        </Row>
-      </Padding>
-    </Background>
+    <Row gap='10px'>
+      {userImage && (
+        <styled.img
+          src={userImage}
+          width='40px'
+          height='40px'
+          boxShadow='variant'
+          border='1px solid darkgray'
+          borderRadius='50%'
+        />
+      )}
+      <Background
+        bg='#fff'
+        css={{
+          borderRadius: 'md',
+          boxShadow: 'variant',
+        }}
+      >
+        <Padding p='0px 10px'>
+          {userFirstName && <Text>{userFirstName}</Text>}
+        </Padding>
+      </Background>
+      <Button text='save' onClick={() => alert('todo')} />
+      <Button text='Sign out' onClick={() => signOut()} />
+    </Row>
   );
 };

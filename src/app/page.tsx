@@ -6,9 +6,10 @@ import {
 } from '#/context/polygons-context/PolygonsContext';
 import { Position, Background } from '#/atoms';
 import { SideMenu } from '#/components/SideMenu';
-import { TopMenu } from '#/components/TopMenu';
+import { ToolOptions } from '#/components/ToolOptions';
 import { Polygons } from '#/components/Polygons';
 import { useSvgPanelHandlers } from '#/hooks';
+import { TopMenu } from '#/components/TopMenu';
 
 const SVGPanel = () => {
   const { state, dispatch } = usePolygonsContext();
@@ -37,8 +38,11 @@ const SVGPanel = () => {
           <Polygons />
         </svg>
       </Position>
-      <Position top='2vw' left='40vw'>
+      <Position top='2vw' left='2vw'>
         <TopMenu />
+      </Position>
+      <Position top='2vw' left='40vw'>
+        <ToolOptions />
       </Position>
       <Position right='2vw' top='10vh'>
         <SideMenu />
