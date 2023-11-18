@@ -13,8 +13,9 @@ const config = {
   // setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 
   testEnvironment: 'jest-environment-jsdom',
+  // @todo is this path correct ?
   moduleNameMapper: {
-    '^#/(.*)$': '<rootDir>/$1',
+    '^#/(.*)$': '<rootDir>/src/$1',
   },
 };
 

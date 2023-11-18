@@ -1,6 +1,6 @@
 import { defineConfig } from '@pandacss/dev';
-import { textStyles } from './theme/textStyles';
-import { keyframes } from './theme/keyframes';
+import { textStyles } from './src/theme/textStyles';
+import { keyframes } from './src/theme/keyframes';
 
 export default defineConfig({
   // Whether to use css reset
@@ -8,9 +8,9 @@ export default defineConfig({
 
   // Where to look for your css declarations
   include: [
-    './atoms/**/*.{ts,tsx,js,jsx}',
-    './components/**/*.{ts,tsx,js,jsx}',
-    './app/**/*.{ts,tsx,js,jsx}',
+    './src/atoms/**/*.{ts,tsx,js,jsx}',
+    './src/components/**/*.{ts,tsx,js,jsx}',
+    './src/app/**/*.{ts,tsx,js,jsx}',
   ],
   exclude: [],
   conditions: {
