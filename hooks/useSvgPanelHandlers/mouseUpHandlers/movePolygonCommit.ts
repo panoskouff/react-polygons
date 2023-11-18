@@ -9,7 +9,7 @@ export const movePolygonCommit = (
 ) => {
   const polygonId = elements.g?.getAttribute('data-polygon-id');
   if (!elements.g || !polygonId) {
-    console.error(
+    console.warn(
       'handleMouseUp movePolygonCommit: Missing ref(s) or polygonId'
     );
     return;

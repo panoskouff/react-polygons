@@ -4,14 +4,11 @@ import { DragHelpers, PointsHelpers, SvgElements } from '../types';
 export const moveVertexCommit = (
   dispatch: React.Dispatch<Action>,
   elements: SvgElements,
-  pointsHelpers: PointsHelpers,
-  dragHelpers: DragHelpers
+  pointsHelpers: PointsHelpers
 ) => {
   const polygonId = elements.g?.getAttribute('data-polygon-id');
   if (!pointsHelpers.polygonPoints || !polygonId) {
-    console.error(
-      'handleMouseUp moveVertexCommit: Missing ref(s) or polygonId'
-    );
+    console.warn('handleMouseUp moveVertexCommit: Missing ref(s) or polygonId');
     return;
   }
   /* pointsHelpers.polygonPoints already contains the

@@ -120,7 +120,6 @@ export const useSvgPanelHandlers = (
           dispatch,
           elements.current,
           pointsHelpers.current,
-          dragHelpers.current
         );
       }
       cleanUpRefs(elements.current, pointsHelpers.current, dragHelpers.current);
