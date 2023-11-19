@@ -10,7 +10,7 @@ type SaveWorkError = {
 
 export type SaveWorkResponse = 'OK' | SaveWorkError;
 
-export const saveWork = async (
+export const saveWorkspace = async (
   workspace: Polygons
 ): Promise<SaveWorkResponse> => {
   try {

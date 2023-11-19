@@ -3,7 +3,7 @@
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { Row, Button } from '#/atoms';
 import { UserIndicator } from './UserIndicator';
-import { SaveButton } from '#/components/save-button/SaveButton';
+import { SaveButton } from '#/components/SaveButton';
 
 export const TopMenu = () => {
   const { data: session, status } = useSession();
