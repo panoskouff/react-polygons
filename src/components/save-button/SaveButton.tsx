@@ -3,10 +3,7 @@ import { useRef, useState } from 'react';
 import { css } from '#/styled-system/css';
 import { Button, Padding, Text } from '#/atoms';
 import { usePolygonsContext } from '#/context/polygons-context/PolygonsContext';
-import {
-  saveWork as serverWorkServerAction,
-  SaveWorkResponse,
-} from './saveWork';
+import { saveWork as saveWorkServerAction, SaveWorkResponse } from './saveWork';
 
 export const SaveButton = () => {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -15,9 +12,10 @@ export const SaveButton = () => {
   const [saveResponse, setSaveResponse] = useState<SaveWorkResponse | null>(
     null
   );
+
   const saveWork = async () => {
     setPending(true);
-    const saveResponse = await serverWorkServerAction(state.polygons);
+    const saveResponse = await saveWorkServerAction(state.polygons);
     setSaveResponse(saveResponse);
     setPending(false);
     dialogRef.current?.showModal();
