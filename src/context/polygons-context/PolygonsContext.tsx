@@ -1,5 +1,6 @@
+'use client';
 import React, { useReducer, useContext, createContext } from 'react';
-import { Action, State } from '#/types/state/polygons';
+import { Action, Polygons, State } from '#/types/state/polygons';
 import { combinedReducer } from '#/state/polygons/combinedReducer';
 
 const PolygonsContext = createContext<{
@@ -10,14 +11,14 @@ const PolygonsContext = createContext<{
   dispatch: () => null,
 });
 
-const PolygonsContextProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  // @todo get initial state from provider or user storage
+const PolygonsContextProvider: React.FC<{
+  children: React.ReactNode;
+  initialWorkSpace: Polygons | null;
+}> = ({ children, initialWorkSpace }) => {
   const [state, dispatch] = useReducer(combinedReducer, {
     mode: 'idle',
     selectedPolygon: null,
-    polygons: {},
+    polygons: initialWorkSpace ?? {},
   });
 
   return (
