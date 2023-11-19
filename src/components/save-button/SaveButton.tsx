@@ -3,29 +3,40 @@ import { useRef, useState } from 'react';
 import { css } from '#/styled-system/css';
 import { Button, Padding, Text } from '#/atoms';
 import { usePolygonsContext } from '#/context/polygons-context/PolygonsContext';
+import {
+  saveWork as serverWorkServerAction,
+  SaveWorkResponse,
+} from './saveWork';
 
 export const SaveButton = () => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const { state } = usePolygonsContext();
   const [pending, setPending] = useState(false);
+  const [saveResponse, setSaveResponse] = useState<SaveWorkResponse | null>(
+    null
+  );
   const saveWork = async () => {
-    const currentWork = JSON.stringify(state.polygons);
-
     setPending(true);
-    // @todo server action
+    const saveResponse = await serverWorkServerAction(state.polygons);
+    setSaveResponse(saveResponse);
     setPending(false);
     dialogRef.current?.showModal();
     setTimeout(() => {
       dialogRef.current?.close();
+      setSaveResponse(null);
     }, 2000);
   };
 
   return (
     <>
-      {/* we dialog use it as a toast here.. */}
+      {/* <dialog> is our toast element */}
       <dialog className={dialogStyles} ref={dialogRef}>
         <Padding p='5px 20px'>
-          <Text>Your work is saved! 👌</Text>
+          {saveResponse === 'OK' ? (
+            <Text> Your work is saved! 👌</Text>
+          ) : (
+            <Text> {saveResponse?.message}</Text>
+          )}
         </Padding>
       </dialog>
 

@@ -1,2 +1,2 @@
-export * from '../../pandaCSS';
+export * from './pandaCSS';
 export * from './geometry';

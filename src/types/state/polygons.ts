@@ -1,5 +1,15 @@
 import { Point } from '../geometry';
 
+export type Polygons = {
+  [polygonId: string]: {
+    isComplete: boolean;
+    points: {
+      x: number;
+      y: number;
+    }[];
+  };
+};
+
 export type State = {
   mode:
     | 'idle'
@@ -11,15 +21,7 @@ export type State = {
     | 'remove-vertex'
     | 'remove-side';
   selectedPolygon: string | null;
-  polygons: {
-    [key: string]: {
-      isComplete: boolean;
-      points: {
-        x: number;
-        y: number;
-      }[];
-    };
-  };
+  polygons: Polygons;
 };
 
 export type setModeIdleAction = { type: 'SET_MODE_IDLE' };

@@ -1,5 +1,5 @@
 import { styled } from '#/styled-system/jsx';
-import type { PandaButtonProps } from '#/types';
+import { PandaButtonProps } from '#/types/';
 import { Text, Padding } from '#/atoms';
 
 export type ButtonProps = PandaButtonProps<'display' | 'p' | 'css'> & {
@@ -19,6 +19,7 @@ export const Button: React.FC<ButtonProps> = ({
     border='1px solid #ccc'
     borderRadius='sm'
     boxShadow='buttonPrimary'
+    transition='all 0.1s'
     _hover={{ bg: '#eee' }}
     _disabled={{
       bg: '#ccc',
