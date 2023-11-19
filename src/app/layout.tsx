@@ -5,6 +5,7 @@ import '../theme/css/globals.css';
 import { mulish, tinos } from '#/theme/fonts';
 import { getServerSession } from 'next-auth';
 import SessionProvider from '#/components/SessionProvider';
+import { authOptions } from './api/auth/[...nextauth]/route';
 
 export const metadata = {
   title: 'Create Next App',
@@ -16,7 +17,9 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
+
+  console.log('👌', session?.user?.id);
 
   return (
     <html lang='en' className={`${mulish.variable} ${tinos.variable}`}>

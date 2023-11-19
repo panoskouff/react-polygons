@@ -59,4 +59,6 @@ export const UserIndicator: React.FC<Props> = ({ name, image }) => {
   if (!name && image) {
     return <UserImage image={image} />;
   }
+
+  return null;
 };
