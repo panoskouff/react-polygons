@@ -35,6 +35,7 @@ export const SaveButtonContainer = () => {
   return (
     <SaveButton
       ref={dialogRef}
+      /* if message is undefined, dialogue should be closed */
       toastMessage={message ?? 'Something went wrong 😢'}
       buttonText='save'
       pendingButtonText='saving...'
