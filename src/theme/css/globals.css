@@ -1,3 +1,7 @@
+:root {
+  --text-color-primary: #000;
+}
+
 @layer reset {
   /* page height */
   html,

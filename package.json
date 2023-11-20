@@ -22,8 +22,7 @@
     "next-auth": "^4.24.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "5.1.6",
-    "zod": "^3.22.4"
+    "typescript": "5.1.6"
   },
   "devDependencies": {
     "@pandacss/dev": "^0.6.0",

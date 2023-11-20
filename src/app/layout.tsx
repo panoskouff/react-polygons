@@ -1,12 +1,12 @@
-import '../theme/css/index.css';
-import '../theme/css/reset.css';
-import '../theme/css/theme.css';
-import '../theme/css/globals.css';
+import '../theme/globalStyles';
 import { mulish, tinos } from '#/theme/fonts';
 
 export const metadata = {
   title: 'React Polygons',
   description: 'A polygon drawing app built with React and Next.js',
+  icons: {
+    icon: '/public/icon.png',
+  },
 };
 
 export default async function RootLayout({

@@ -10,11 +10,6 @@ export type PandaDivProps<T extends keyof HTMLStyledProps<'div'>> = Merge<
   Partial<Pick<HTMLStyledProps<'div'>, T>>
 >;
 
-export type PandaInputProps<T extends keyof HTMLStyledProps<'input'>> = Merge<
-  Omit<React.InputHTMLAttributes<HTMLInputElement>, 'color'>,
-  Partial<Pick<HTMLStyledProps<'input'>, T>>
->;
-
 export type PandaButtonProps<T extends keyof HTMLStyledProps<'button'>> = Merge<
   Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'>,
   Partial<Pick<HTMLStyledProps<'button'>, T>>
