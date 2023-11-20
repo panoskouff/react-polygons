@@ -5,6 +5,80 @@ A polygon drawing app built using React and Next.js
 
 <img width="640" alt="Screenshot 2023-11-20 at 07 34 06" src="https://github.com/panoskouff/technical-assignment-react-polygons/assets/107889674/d544b92c-d7c1-4116-8d06-c0b88f1957b3">
 
+# Getting Started
+
+### Prerequisites
+
+Before setting up "React Polygons," ensure you have the following:
+- Node.js (version 18)
+- pnpm (or remove pnpm-lock and use your package manager of choice)
+
+### Installation
+
+1. **Clone the Repository**
+
+   Clone the repository to your local machine using Git:
+
+   ```sh
+   git clone https://github.com/panoskouff/technical-assignment-react-polygons.git
+   ```
+
+2. **Install Dependencies**
+
+   Navigate to the cloned directory and use `pnpm` to install the dependencies:
+
+   ```sh
+   cd technical-assignment-react-polygons
+   pnpm install
+   ```
+
+3. **Setting Up GitHub OAuth for Authentication**
+
+   - Navigate to 'Developer settings' > 'OAuth Apps' in your GitHub account settings.
+   - Create a new OAuth App with the following details:
+     - Homepage URL: `http://localhost:3000`
+     - Authorization callback URL: `http://localhost:3000/api/auth/callback/github`
+   - Note the 'Client ID' and 'Client Secret' after creation.
+
+4. **Configure Environment Variables**
+
+   Add the following to the `.env` file in the root of the project:
+
+   ```env
+   GITHUB_ID=<Your GitHub Client ID>
+   GITHUB_SECRET=<Your GitHub Generated Secret>
+   ```
+
+   Replace placeholders with your GitHub OAuth credentials.
+
+5. **Start the Application**
+
+   Launch the application using:
+
+   ```sh
+   pnpm run dev
+   ```
+
+   Access the app at `http://localhost:3000`.
+
+### Folder Structure
+
+An overview of the folders within the `src` directory.
+
+- `actions`: Contains our server actions.
+- `app`: Includes core application setup and configuration files.
+  - `api`: Contains API-related configurations and utilities.
+    - `auth`: Holds authentication-related logic, specifically the integration with NextAuth.
+- `atoms`: Stores small, reusable components or React hooks that can be used across the application.
+- `components`: Contains React components used to build the user interface.
+- `context`: Includes React context definitions for global state management, like the polygons context.
+- `hooks`: Contains custom React hooks to encapsulate and reuse stateful logic.
+- `state`: Manages the application's state.
+- `tests`: Includes unit and integration tests to ensure application reliability and stability.
+- `theme`: Contains theming configurations and style definitions, typically used across the entire application.
+- `types`: Defines TypeScript types and interfaces, especially for state management structures.
+- `utils`: A utility folder for common helper functions and tools that can be used throughout the application.
+
 # Implementation Notes
 
 **Summary**: 
