@@ -5,7 +5,7 @@ import { getServerSession } from 'next-auth';
 import SessionProvider from '#/components/SessionProvider';
 import { authOptions } from './api/auth/[...nextauth]/authOptions';
 import ServerMemoryState from '#/state/ServerMemoryState';
-import { SvgPanel } from '#/components/SvgPanel';
+import { SvgPanel } from '#/components/svg-panel/SvgPanel';
 
 export default async function Home() {
   const session = await getServerSession(authOptions);

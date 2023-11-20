@@ -116,11 +116,7 @@ export const useSvgPanelHandlers = (
           dragHelpers.current
         );
       } else if (state.mode === 'move-vertex') {
-        moveVertexCommit(
-          dispatch,
-          elements.current,
-          pointsHelpers.current,
-        );
+        moveVertexCommit(dispatch, elements.current, pointsHelpers.current);
       }
       cleanUpRefs(elements.current, pointsHelpers.current, dragHelpers.current);
     },

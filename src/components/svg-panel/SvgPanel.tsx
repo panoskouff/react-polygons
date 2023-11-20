@@ -27,6 +27,8 @@ export const SvgPanel = () => {
     linear-gradient(to bottom, grey 1px, transparent 1px)'
         h='100%'
       >
+        {/* ideal user experience would save max dimensions
+        of panel to user data and implement scroll by mouse. */}
         <Position {...expanded}>
           <svg
             className={state.mode}
